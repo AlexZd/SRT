@@ -14,9 +14,9 @@ extension UIApplication {
     
     //MARK: - Safari
     
-    public class func openUrl(url:NSURL) {
-        if UIApplication.sharedApplication().canOpenURL(url) {
-            UIApplication.sharedApplication().openURL(url)
+    public class func openUrl(url:NSURL?) {
+        if url != nil && UIApplication.sharedApplication().canOpenURL(url!) {
+            UIApplication.sharedApplication().openURL(url!)
         }
     }
     
