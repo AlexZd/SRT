@@ -11,13 +11,24 @@ import CoreTelephony.CTTelephonyNetworkInfo
 import CoreTelephony.CTCarrier
 
 extension UIApplication {
-    
     //MARK: - Safari
     
     public class func openUrl(url:NSURL?) {
-        if url != nil && UIApplication.sharedApplication().canOpenURL(url!) {
-            UIApplication.sharedApplication().openURL(url!)
+        if let link = url where UIApplication.sharedApplication().canOpenURL(link) {
+            UIApplication.sharedApplication().openURL(link)
         }
+    }
+    
+    //MARK: - iTunes
+    
+    public class func openApplication(id:String) {
+        let url = NSURL(string:"https://itunes.apple.com/app/id" + id)
+        UIApplication.openUrl(url)
+    }
+    
+    public class func openAppForReview(id:String) {
+        let url = NSURL(string:"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=948650272" + id)
+        UIApplication.openUrl(url)
     }
     
     //MARK: - Phone
