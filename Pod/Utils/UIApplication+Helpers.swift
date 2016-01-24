@@ -12,6 +12,14 @@ import CoreTelephony.CTCarrier
 
 extension UIApplication {
     
+    //MARK: - Safari
+    
+    public class func openUrl(url:NSURL) {
+        if UIApplication.sharedApplication().canOpenURL(url) {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
     //MARK: - Phone
     
     public static var canCall : Bool {
