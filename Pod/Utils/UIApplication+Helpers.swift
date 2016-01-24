@@ -21,7 +21,7 @@ extension UIApplication {
     
     //MARK: - iTunes
     
-    public class func openApplication(id:String) {
+    public class func openAppItunes(id:String) {
         let url = NSURL(string:"https://itunes.apple.com/app/id" + id)
         UIApplication.openUrl(url)
     }
