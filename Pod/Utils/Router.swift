@@ -9,7 +9,7 @@ import UIKit
 
 class Router: NSObject {
     static let FTFlipAnimationDuration = 0.5
-    static let sharedInstance = FTRouter()
+    static let sharedInstance = Router()
     
     var window : UIWindow
     
@@ -25,8 +25,7 @@ class Router: NSObject {
     //MARK: - Routing
     
     func showInitialViewController() {
-        let viewController = UIStoryboard.mainStoryboard.instantiateInitialViewController()!
-        self.setWindowRootViewController(viewController, completion: nil)
+
     }
     
     //MARK: - Utils
@@ -40,7 +39,7 @@ class Router: NSObject {
             self.window.rootViewController = viewController
             completion?(finished: true)
         }else{
-            UIView.transitionFromView(self.window.rootViewController!.view!, toView: viewController.view, duration: FTRouter.FTFlipAnimationDuration, options: UIViewAnimationOptions.TransitionFlipFromLeft) { [unowned self] (finished) -> Void in
+            UIView.transitionFromView(self.window.rootViewController!.view!, toView: viewController.view, duration: Router.FTFlipAnimationDuration, options: UIViewAnimationOptions.TransitionFlipFromLeft) { [unowned self] (finished) -> Void in
                 UIView.setAnimationsEnabled(oldState)
                 self.window.rootViewController = viewController
                 completion?(finished: finished)
