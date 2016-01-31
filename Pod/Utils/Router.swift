@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Router: NSObject {
+public class Router: NSObject {
     static let FTFlipAnimationDuration = 0.5
     static let sharedInstance = Router()
     
@@ -24,13 +24,13 @@ class Router: NSObject {
     
     //MARK: - Routing
     
-    func showInitialViewController() {
+    public func showInitialViewController() {
 
     }
     
     //MARK: - Utils
     
-    func setWindowRootViewController(viewController:UIViewController, completion: ((finished : Bool) -> Void)?) {
+    public func setWindowRootViewController(viewController:UIViewController, completion: ((finished : Bool) -> Void)?) {
         viewController.view.frame = self.window.frame
         viewController.view.updateConstraints()
         let oldState = UIView.areAnimationsEnabled()
