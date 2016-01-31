@@ -9,7 +9,7 @@ import UIKit
 
 public class Router: NSObject {
     static let FTFlipAnimationDuration = 0.5
-    static let sharedInstance = Router()
+    public static let sharedInstance = Router()
     
     var window : UIWindow
     
