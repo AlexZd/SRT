@@ -11,7 +11,7 @@ public class Router: NSObject {
     static let FTFlipAnimationDuration = 0.5
     public static let sharedInstance = Router()
     
-    var window : UIWindow
+    public var window : UIWindow
     
     //MARK: - FTRouter lifecycle
     
