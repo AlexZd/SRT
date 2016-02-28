@@ -18,13 +18,13 @@ extension String {
     
     public var firstChar : String {
         get {
-            return String(self.characters.first)
+            return String(self.characters.first!)
         }
     }
     
     public var capitalizedFirstString : String {
         get {
-            return self.firstChar + String(self.characters.dropFirst())
+            return self.firstChar.uppercaseString + String(self.characters.dropFirst())
         }
     }
     
