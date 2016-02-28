@@ -16,11 +16,15 @@ extension String {
         }
     }
     
+    public var firstChar : String {
+        get {
+            return String(self.characters.first)
+        }
+    }
+    
     public var capitalizedFirstString : String {
         get {
-            let index: String.Index = self.startIndex.advancedBy(1)
-            let firstCapChar = self.substringToIndex(index).capitalizedString
-            return (self.lowercaseString as NSString).stringByReplacingCharactersInRange(NSMakeRange(0,1), withString: firstCapChar)
+            return self.firstChar + String(self.characters.dropFirst())
         }
     }
     
