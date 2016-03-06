@@ -25,27 +25,27 @@ public protocol ModelInteraction: class {
 extension ModelInteraction {
     //MARK: - Shoulda
     
-    func shouldAdd(model: AnyObject, options: AnyObject? = [:]) -> Bool {
+    public func shouldAdd(model: AnyObject, options: AnyObject? = [:]) -> Bool {
         return true
     }
     
-    func shouldDelete(model: AnyObject, options: AnyObject? = [:]) -> Bool {
+    public func shouldDelete(model: AnyObject, options: AnyObject? = [:]) -> Bool {
         return true
     }
     
-    func shouldUpdate(model: AnyObject, options: AnyObject? = [:]) -> Bool {
+    public func shouldUpdate(model: AnyObject, options: AnyObject? = [:]) -> Bool {
         return true
     }
     
     //MARK: - Will
     
-    func willAdd(model: AnyObject, options: AnyObject? = [:]) {}
-    func willUpdate(model: AnyObject, options: AnyObject? = [:]) {}
-    func willDelete(model: AnyObject, options: AnyObject? = [:]) {}
+    public func willAdd(model: AnyObject, options: AnyObject? = [:]) {}
+    public func willUpdate(model: AnyObject, options: AnyObject? = [:]) {}
+    public func willDelete(model: AnyObject, options: AnyObject? = [:]) {}
     
     //MARK: - Did
     
-    func didAdd(model: AnyObject, options: AnyObject? = [:]) {}
-    func didUpdate(model: AnyObject, options: AnyObject? = [:]) {}
-    func didDelete(model: AnyObject, options: AnyObject? = [:]) {}
+    public func didAdd(model: AnyObject, options: AnyObject? = [:]) {}
+    public func didUpdate(model: AnyObject, options: AnyObject? = [:]) {}
+    public func didDelete(model: AnyObject, options: AnyObject? = [:]) {}
 }
