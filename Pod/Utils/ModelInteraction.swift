@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ModelInteraction: class {
+public protocol ModelInteraction: class {
     func shouldAdd(model: AnyObject, options: AnyObject?) -> Bool
     func shouldDelete(model: AnyObject, options: AnyObject?) -> Bool
     func shouldUpdate(model: AnyObject, options: AnyObject?) -> Bool
