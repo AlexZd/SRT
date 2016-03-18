@@ -13,11 +13,17 @@ extension UIViewController {
     }
     
     public func showError(title:String, error:NSError) {
-        self.showAlert(title, text: error.localizedDescription)
+        if let errorsInfo = error.userInfo["CRUDResponseDataKey"] as? Array<String> where errorsInfo.isEmpty == false {
+            self.showAlert(title, text: errorsInfo.first)
+        } else {
+            self.showAlert(title, text: error.localizedDescription)
+        }
     }
     
     public func showAlert(title:String, text:String?) {
-        UIAlertView(title: title as String, message: text, delegate: self, cancelButtonTitle: "Ok").show()
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "").uppercaseString, style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     public func fixIOS9PopOverAnchor(segue:UIStoryboardSegue?) {
