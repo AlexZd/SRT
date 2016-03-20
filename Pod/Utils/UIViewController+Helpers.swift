@@ -13,8 +13,11 @@ extension UIViewController {
     }
     
     public func showError(title:String, error:NSError) {
-        if let errorsInfo = error.userInfo["CRUDResponseDataKey"] as? Array<String> where errorsInfo.isEmpty == false {
+        let CRUDResponseDataKey = "CRUDResponseDataKey"
+        if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? Array<String> where errorsInfo.isEmpty == false {
             self.showAlert(title, text: errorsInfo.first)
+        } else if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? Dictionary<String,String> where errorsInfo.isEmpty == false {
+            self.showAlert(title, text: errorsInfo["error"])
         } else {
             self.showAlert(title, text: error.localizedDescription)
         }
