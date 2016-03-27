@@ -51,6 +51,23 @@ extension UIImage {
         return returnImage
     }
     
+    /** Converting a color image to gray scale */
+    public func convertToGrayScale(image: UIImage) -> UIImage {
+        let imageRect:CGRect = CGRectMake(0, 0, image.size.width, image.size.height)
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+        let width = image.size.width
+        let height = image.size.height
+        
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.None.rawValue)
+        let context = CGBitmapContextCreate(nil, Int(width), Int(height), 8, 0, colorSpace, bitmapInfo.rawValue)
+        
+        CGContextDrawImage(context, imageRect, image.CGImage)
+        let imageRef = CGBitmapContextCreateImage(context)
+        let newImage = UIImage(CGImage: imageRef!)
+        
+        return newImage
+    }
+    
     /** Creates an UIImage which has size 1x1 with selected color */
     public class func imageWithColor(color:UIColor) -> UIImage {
         let rect = CGRectMake(0, 0, 1, 1)
