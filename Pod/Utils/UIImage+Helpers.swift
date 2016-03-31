@@ -103,8 +103,12 @@ extension UIImage {
             let k = self.size.width / self.size.height
             newSize = CGSizeMake(maxSize.height * k, maxSize.height)
         }
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
-        self.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        return self.resizeImageToExactSize(newSize)
+    }
+    
+    public func resizeImageToExactSize(size:CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
+        self.drawInRect(CGRectMake(0, 0, size.width, size.height))
         let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
