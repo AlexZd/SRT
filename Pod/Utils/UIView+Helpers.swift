@@ -66,4 +66,13 @@ extension UIView {
         
         self.layer.addAnimation(animation, forKey: "shake")
     }
+    
+    /** Screenshot of current view */
+    public var screenshot : UIImage {
+        UIGraphicsBeginImageContext(self.frame.size)
+        self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
