@@ -23,3 +23,13 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary
     }
     return map
 }
+
+extension Dictionary {
+    
+    public mutating func merge<K, V>(dict: [K: V]){
+        for (k, v) in dict {
+            self.updateValue(v as! Value, forKey: k as! Key)
+        }
+    }
+    
+}
