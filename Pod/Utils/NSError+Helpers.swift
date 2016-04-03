@@ -9,7 +9,7 @@ import Foundation
 
 extension NSError {
     public class func errorWith(string:String) -> NSError {
-        let domain = "com.s4m.lobbymanager"
+        let domain = "com.alexzd.swiftutils"
         let userinfo = [NSLocalizedDescriptionKey : string]
         let error = NSError(domain: domain, code: 0, userInfo: userinfo)
         return error
