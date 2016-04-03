@@ -8,13 +8,6 @@
 import Foundation
 
 extension String {
-    public static var applicationDocumentsDirectory : String {
-        get {
-            let nsDocumentDirectory = NSSearchPathDirectory.DocumentDirectory
-            let nsUserDomainMask = NSSearchPathDomainMask.UserDomainMask
-            return NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true).first!
-        }
-    }
     
     public var firstChar : String {
         get {
