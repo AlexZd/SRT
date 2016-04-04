@@ -51,7 +51,8 @@ extension NSDate {
     /** Converts NSDate to String with mask format in Gregorian format */
     public func dateToGregorianString(mask:String?) -> String {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)
+        dateFormatter.calendar = calendar
         if mask != nil {
             dateFormatter.dateFormat = mask
         }else{
@@ -72,7 +73,8 @@ extension NSDate {
     
     public func dateTimeToGregorianFormatter(dateF:NSDateFormatterStyle, timeF:NSDateFormatterStyle) -> String{
         let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)
+        dateFormatter.calendar = calendar
         dateFormatter.timeStyle = timeF
         dateFormatter.dateStyle = dateF
         
