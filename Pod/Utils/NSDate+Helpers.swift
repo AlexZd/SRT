@@ -35,8 +35,23 @@ extension NSDate {
         return cal.dateFromComponents(components)!
     }
     
+    /** Converts NSDate to String with mask format */
     public func dateToString(mask:String?) -> String {
         let dateFormatter = NSDateFormatter()
+        if mask != nil {
+            dateFormatter.dateFormat = mask
+        }else{
+            dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
+            dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        }
+        
+        return dateFormatter.stringFromDate(self)
+    }
+
+    /** Converts NSDate to String with mask format in Gregorian format */
+    public func dateToGregorianString(mask:String?) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         if mask != nil {
             dateFormatter.dateFormat = mask
         }else{

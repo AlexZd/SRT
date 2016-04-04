@@ -34,6 +34,7 @@ extension String {
         }
     }
     
+    /** Converts String to Gregorian NSDate */
     public func stringToDate(mask:String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
