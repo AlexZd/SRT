@@ -70,17 +70,28 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
     
-    public func dateToFormatter(formatter:NSDateFormatterStyle) -> String{
+    public func dateTimeToGregorianFormatter(dateF:NSDateFormatterStyle, timeF:NSDateFormatterStyle) -> String{
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = formatter
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.timeStyle = timeF
+        dateFormatter.dateStyle = dateF
         
         return dateFormatter.stringFromDate(self)
     }
     
+    public func dateToFormatter(formatter:NSDateFormatterStyle) -> String{
+        return self.dateTimeToFormatter(formatter, timeF: .NoStyle)
+    }
+    
+    public func dateToGregorianFormatter(formatter:NSDateFormatterStyle) -> String{
+        return self.dateTimeToGregorianFormatter(formatter, timeF: .NoStyle)
+    }
+    
     public func timeToFormatter(formatter:NSDateFormatterStyle) -> String{
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = formatter
-        
-        return dateFormatter.stringFromDate(self)
+        return self.dateTimeToFormatter(.NoStyle, timeF:formatter)
+    }
+    
+    public func timeToGregorianFormatter(formatter:NSDateFormatterStyle) -> String{
+        return self.dateTimeToGregorianFormatter(.NoStyle, timeF:formatter)
     }
 }
