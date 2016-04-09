@@ -14,4 +14,9 @@ extension NSRange {
         return NSRange(location: 0, length: 0)
     }
     
+    public init(length: Int) {
+        self.location = 0
+        self.length = length
+    }
+    
 }
