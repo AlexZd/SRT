@@ -35,8 +35,24 @@ extension NSDate {
         return cal.dateFromComponents(components)!
     }
     
+    /** Converts NSDate to String with mask format */
     public func dateToString(mask:String?) -> String {
         let dateFormatter = NSDateFormatter()
+        if mask != nil {
+            dateFormatter.dateFormat = mask
+        }else{
+            dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
+            dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        }
+        
+        return dateFormatter.stringFromDate(self)
+    }
+
+    /** Converts NSDate to String with mask format in Gregorian format */
+    public func dateToGregorianString(mask:String?) -> String {
+        let dateFormatter = NSDateFormatter()
+        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)
+        dateFormatter.calendar = calendar
         if mask != nil {
             dateFormatter.dateFormat = mask
         }else{
@@ -55,17 +71,29 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
     
-    public func dateToFormatter(formatter:NSDateFormatterStyle) -> String{
+    public func dateTimeToGregorianFormatter(dateF:NSDateFormatterStyle, timeF:NSDateFormatterStyle) -> String{
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = formatter
+        let calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)
+        dateFormatter.calendar = calendar
+        dateFormatter.timeStyle = timeF
+        dateFormatter.dateStyle = dateF
         
         return dateFormatter.stringFromDate(self)
     }
     
+    public func dateToFormatter(formatter:NSDateFormatterStyle) -> String{
+        return self.dateTimeToFormatter(formatter, timeF: .NoStyle)
+    }
+    
+    public func dateToGregorianFormatter(formatter:NSDateFormatterStyle) -> String{
+        return self.dateTimeToGregorianFormatter(formatter, timeF: .NoStyle)
+    }
+    
     public func timeToFormatter(formatter:NSDateFormatterStyle) -> String{
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = formatter
-        
-        return dateFormatter.stringFromDate(self)
+        return self.dateTimeToFormatter(.NoStyle, timeF:formatter)
+    }
+    
+    public func timeToGregorianFormatter(formatter:NSDateFormatterStyle) -> String{
+        return self.dateTimeToGregorianFormatter(.NoStyle, timeF:formatter)
     }
 }

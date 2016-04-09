@@ -86,7 +86,7 @@ extension UIImage {
     /** Saves image to Application folder with name */
     public func saveImageWith(name:String, isTmp:Bool) {
         let data = UIImageJPEGRepresentation(self, 1)
-        let folder = isTmp ? NSTemporaryDirectory() : String.applicationDocumentsDirectory
+        let folder = isTmp ? NSFileManager.Directory.Temp :  NSFileManager.Directory.Cache
         guard let fullPath = NSURL(string: folder)?.URLByAppendingPathComponent(name).absoluteString else {
             return
         }

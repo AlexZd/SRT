@@ -24,12 +24,12 @@ extension UILabel{
     /** Height for current text in label */
     public var labelHeight : CGFloat {
         get {
-            let rect = text!.boundingRectWithSize(CGSizeMake(frame.size.height, CGFloat.max),
+            let rect = text!.boundingRectWithSize(CGSizeMake(frame.size.width, CGFloat.max),
                 options: NSStringDrawingOptions.UsesLineFragmentOrigin,
                 attributes:[NSFontAttributeName: font],
                 context:nil)
             
-            return rect.size.width
+            return rect.size.height
         }
     }
     

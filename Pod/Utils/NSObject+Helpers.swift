@@ -38,9 +38,9 @@ extension NSObject {
 
     }
     
-    /** Remove file with name from applicationDocuments folder */
+    /** Remove file with name from Documents folder */
     public func removeFile(fileName:String) {
-        guard let fileURL = NSURL(string: String.applicationDocumentsDirectory)?.URLByAppendingPathComponent(fileName) else {
+        guard let fileURL = NSURL(string: NSFileManager.Directory.Documents)?.URLByAppendingPathComponent(fileName) else {
             print("File not found")
             return
         }

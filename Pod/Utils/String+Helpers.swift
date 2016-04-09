@@ -8,13 +8,6 @@
 import Foundation
 
 extension String {
-    public static var applicationDocumentsDirectory : String {
-        get {
-            let nsDocumentDirectory = NSSearchPathDirectory.DocumentDirectory
-            let nsUserDomainMask = NSSearchPathDomainMask.UserDomainMask
-            return NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true).first!
-        }
-    }
     
     public var firstChar : String {
         get {
@@ -41,6 +34,7 @@ extension String {
         }
     }
     
+    /** Converts String to Gregorian NSDate */
     public func stringToDate(mask:String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
