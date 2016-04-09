@@ -24,6 +24,19 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary
     return map
 }
 
+public func * <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>?) -> Dictionary<K,V> {
+    var map = Dictionary<K,V>()
+    if let dictionary = right {
+        for (k, v) in dictionary {
+            map[k] = v
+        }
+    }
+    for (k, v) in left {
+        map[k] = v
+    }
+    return map
+}
+
 extension Dictionary {
     
     public mutating func merge<K, V>(dict: [K: V]){
