@@ -9,6 +9,7 @@
 import Foundation
 
 extension Int {
+    
     public func thousandSeparated(separator:String?) -> String {
         return NSNumber(integer: self).thousandSeparated(separator)
     }
@@ -17,4 +18,5 @@ extension Int {
         let rem = self % divisor
         return rem == 0 ? self : self + divisor - rem
     }
+    
 }
