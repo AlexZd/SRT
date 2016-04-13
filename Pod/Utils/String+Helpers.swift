@@ -21,19 +21,6 @@ extension String {
         }
     }
     
-    public var toDictionary : Dictionary<String,AnyObject>? {
-        get {
-            guard let data = (self as NSString).dataUsingEncoding(NSUTF8StringEncoding) else {
-                return nil
-            }
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? Dictionary<String, AnyObject>
-            } catch {
-                return nil
-            }
-        }
-    }
-    
     /** Converts String to Gregorian NSDate */
     public func stringToDate(mask:String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
