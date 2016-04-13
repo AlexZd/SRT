@@ -48,4 +48,20 @@ extension Dictionary {
         }
     }
     
+    public mutating func removeAll(except all: [AnyObject]) {
+        for key in Array(self.keys) {
+            if all.contains(key) == false {
+                self.removeValueForKey(key)
+            }
+        }
+    }
+    
+    public mutating func removeAll(only all : [AnyObject]) {
+        for key in Array(self.keys) {
+            if all.contains(key) {
+                self.removeValueForKey(key)
+            }
+        }
+    }
+    
 }
