@@ -29,28 +29,6 @@ extension UIImage {
         return gradientImage
     }
     
-    public func colorOverlay(color:UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
-        self.drawAtPoint(CGPointZero)
-        
-        let rect = CGRectMake(0, 0, self.size.width, self.size.height)
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        CGContextTranslateCTM(context, 0.0, self.size.height)
-        CGContextScaleCTM(context, 1.0, -1.0)
-        
-        CGContextSetBlendMode(context, CGBlendMode.Overlay)
-        CGContextClipToMask(context, rect, self.CGImage)
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, rect)
-        
-        let returnImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        return returnImage
-    }
-    
     /** Converting a color image to gray scale */
     public func convertToGrayScale() -> UIImage {
         let imageRect:CGRect = CGRectMake(0, 0, self.size.width, self.size.height)
