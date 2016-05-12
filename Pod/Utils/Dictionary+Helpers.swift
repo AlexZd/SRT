@@ -64,4 +64,12 @@ extension Dictionary {
         }
     }
     
+    public func slice(keys: [Key]) -> [Key:Value] {
+        return self.filter({ keys.contains($0.0) }).reduce([:], combine: { $0 + [$1.0 : $1.1] })
+    }
+    
+    public func except(keys: [Key]) -> [Key: Value] {
+        return self.filter({ keys.contains($0.0) == false }).reduce([:], combine: { $0 + [$1.0 : $1.1] })
+    }
+    
 }
