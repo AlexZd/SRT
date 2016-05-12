@@ -28,7 +28,7 @@ extension NSDate {
     
     public func dateWithShift(days:Int, months:Int, years:Int) -> NSDate {
         let cal = NSCalendar.currentCalendar()
-        let components = cal.components([.Year, .Month, .Day], fromDate: NSDate())
+        let components = cal.components([.Year, .Month, .Day], fromDate: self)
         components.year = components.year + years
         components.month = components.month + months
         components.day = components.day + days
