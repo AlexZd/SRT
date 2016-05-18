@@ -7,6 +7,21 @@
 
 import Foundation
 
+public func ==(l: NSDate?, r: NSDate?) -> Bool {
+    if let right = r {
+        return l?.compare(right) == .OrderedSame
+    }
+    return false
+}
+
+public func <(l: NSDate, r: NSDate) -> Bool {
+    return l.compare(r) == .OrderedAscending
+}
+
+public func >(l: NSDate, r: NSDate) -> Bool {
+    return l.compare(r) == .OrderedDescending
+}
+
 extension NSDate {
     public var dateOnly : NSDate {
         get {
