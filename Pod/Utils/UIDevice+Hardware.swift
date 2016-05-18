@@ -8,7 +8,7 @@
 import UIKit
 
 public let IS_IPAD : Bool = UIDevice.currentDevice().userInterfaceIdiom == .Pad
-public let IS_IPAD_PRO_BIG : Bool = (IS_IPAD && UIScreen.mainScreen().bounds.size.height == 1366.0)
+public let IS_IPAD_PRO_BIG : Bool = (IS_IPAD && max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) == 1366.0)
 
 public let IS_IPHONE : Bool = UIDevice.currentDevice().userInterfaceIdiom == .Phone
 public let IS_IPHONE_4 : Bool = (IS_IPHONE && UIScreen.mainScreen().bounds.size.height == 480.0)
