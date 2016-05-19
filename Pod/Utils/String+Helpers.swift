@@ -21,6 +21,20 @@ extension String {
         }
     }
     
+    public var up: String {
+        if #available(iOS 9, *) {
+            return self.localizedUppercaseString
+        }
+        return self.uppercaseString
+    }
+    
+    public var down: String {
+        if #available(iOS 9, *) {
+            return self.localizedLowercaseString
+        }
+        return self.lowercaseString
+    }
+    
     /** Converts String to Gregorian NSDate */
     public func stringToDate(mask:String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
