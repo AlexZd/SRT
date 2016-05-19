@@ -20,7 +20,7 @@ extension NSFileManager {
     public class func listFiles(folder:String?) {
         var paths = NSFileManager.Directory.Documents
         if let folder = folder {
-            paths = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent(folder).absoluteString
+            paths = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent(folder).path!
         }
         do {
             let directoryContent = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(paths)
