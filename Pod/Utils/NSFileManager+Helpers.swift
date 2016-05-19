@@ -18,14 +18,12 @@ extension NSFileManager {
     
     /** Print list of Documents files */
     public class func listFiles(folder:String?) {
-        let paths = NSFileManager.Directory.Documents
-        
-        guard let path = (folder != nil ? NSURL(string: paths)?.URLByAppendingPathComponent(folder!).absoluteString : paths) else {
-            return
+        var paths = NSFileManager.Directory.Documents
+        if let folder = folder {
+            paths = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent(folder).absoluteString
         }
-        
         do {
-            let directoryContent = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(path)
+            let directoryContent = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(paths)
             print("+--------------------------------------+")
             print("| FILES:                               |")
             print("+--------------------------------------+")
@@ -40,10 +38,7 @@ extension NSFileManager {
     
     /** Remove file with name from Documents folder */
     public class func removeFile(fileName:String) {
-        guard let fileURL = NSURL(string: NSFileManager.Directory.Documents)?.URLByAppendingPathComponent(fileName) else {
-            print("File not found")
-            return
-        }
+        let fileURL = NSURL(fileURLWithPath: NSFileManager.Directory.Documents).URLByAppendingPathComponent(fileName)
         do {
             try NSFileManager.defaultManager().removeItemAtURL(fileURL)
             print("File \(fileName) removed")
