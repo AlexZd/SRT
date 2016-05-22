@@ -15,7 +15,7 @@ extension String {
     /** Returns last char */
     var last: String { return String(self.characters.suffix(1)) }
     
-    /** Returns localizedUppercaseString for iOS 9+ or uppercaseString for below*/
+    /** Returns localizedUppercaseString for iOS 9+ or uppercaseString for below */
     public var up: String {
         if #available(iOS 9, *) {
             return self.localizedUppercaseString
@@ -23,7 +23,7 @@ extension String {
         return self.uppercaseString
     }
     
-    /** Returns localizedLowercaseString for iOS 9+ or lowercaseString for below*/
+    /** Returns localizedLowercaseString for iOS 9+ or lowercaseString for below */
     public var down: String {
         if #available(iOS 9, *) {
             return self.localizedLowercaseString
@@ -31,7 +31,7 @@ extension String {
         return self.lowercaseString
     }
     
-    /** Returns localizedCapitalizedString for iOS 9+ or capitalizedString for below*/
+    /** Returns localizedCapitalizedString for iOS 9+ or capitalizedString for below */
     public var cap: String {
         if #available(iOS 9, *) {
             return self.localizedCapitalizedString
@@ -40,7 +40,7 @@ extension String {
     }
     
     /** Returns string with first capitalized letter */
-    public var capF: String {
+    public var capFirst: String {
         return self.first.up + String(self.characters.dropFirst())
     }
     
