@@ -10,10 +10,10 @@ import Foundation
 extension String {
     
     /** Returns first char */
-    var first: String { return String(self.characters.prefix(1)) }
+    public var first: String { return String(self.characters.prefix(1)) }
     
     /** Returns last char */
-    var last: String { return String(self.characters.suffix(1)) }
+    public var last: String { return String(self.characters.suffix(1)) }
     
     /** Returns localizedUppercaseString for iOS 9+ or uppercaseString for below */
     public var up: String {
