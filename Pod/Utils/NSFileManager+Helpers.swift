@@ -8,6 +8,20 @@
 
 import Foundation
 
+public enum Folder {
+    case Documents
+    case Cache
+    case Temp
+    
+    public var path : String {
+        switch self {
+        case .Documents: return NSFileManager.Directory.Documents
+        case .Cache: return NSFileManager.Directory.Cache
+        case .Temp: return NSFileManager.Directory.Temp
+        }
+    }
+}
+
 extension NSFileManager {
     
     public struct Directory {

@@ -62,16 +62,16 @@ extension UIImage {
     }
     
     /** Saves image to Application folder with name */
-    public func saveImageWith(name:String, isTmp:Bool) {
+    public func save(name:String, folder:Folder) -> Bool {
         let data = UIImageJPEGRepresentation(self, 1)
-        let folder = isTmp ? NSFileManager.Directory.Temp :  NSFileManager.Directory.Cache
-        guard let fullPath = NSURL(string: folder)?.URLByAppendingPathComponent(name).absoluteString else {
-            return
+        guard let fullPath = NSURL(string: folder.path)?.URLByAppendingPathComponent(name).path else {
+            return false
         }
-        NSFileManager.defaultManager().createFileAtPath(fullPath, contents: data, attributes: nil)
+        return NSFileManager.defaultManager().createFileAtPath(fullPath, contents: data, attributes: nil)
     }
     
     /** Change image size */
+    //TODO: - Need to use AVMakeRectWithAspectRatioInsideRect
     public func resizeImageTo(maxSize:CGSize) -> UIImage {
         var newSize = maxSize
         if self.size.width > self.size.height {
