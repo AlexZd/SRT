@@ -9,7 +9,7 @@
 import Photos
 
 public typealias PhotosCompletionBlock = (collection: PHAssetCollection?) -> Void
-public typealias PhotosAddImageCompletionBlock = (error: NSError?) -> Void
+public typealias PhotosAddImageCompletionBlock = (assetPlaceholder:PHObjectPlaceholder?, error: NSError?) -> Void
 
 extension PHAssetCollection {
     public class func saveImageToAlbum(image:UIImage, albumName:String, completionBlock:PhotosAddImageCompletionBlock?) {
@@ -41,18 +41,20 @@ extension PHAssetCollection {
             })
         }
     }
+
     
     /** Adds UIImage to current album */
     public func addImage(image:UIImage, completionBlock:PhotosAddImageCompletionBlock?) {
+        var assetPlaceholder : PHObjectPlaceholder?
         PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
             let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
-            let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
+            assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
             if let albumChangeRequest = PHAssetCollectionChangeRequest(forAssetCollection: self) {
                 albumChangeRequest.addAssets([assetPlaceholder!])
             }
         }) { (success, error) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
-                completionBlock?(error: error)
+                completionBlock?(assetPlaceholder: assetPlaceholder, error: error)
             }
         }
     }
