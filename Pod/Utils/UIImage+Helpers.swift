@@ -62,12 +62,14 @@ extension UIImage {
     }
     
     /** Saves image to Application folder with name */
-    public func save(name:String, folder:Folder) -> Bool {
+    public func save(name:String, folder:Folder) -> NSURL? {
         let data = UIImageJPEGRepresentation(self, 1)
-        guard let fullPath = NSURL(string: folder.path)?.URLByAppendingPathComponent(name).path else {
-            return false
+        let url = NSURL(string: folder.path)?.URLByAppendingPathComponent(name)
+        guard let fullPath = url?.path else { return nil }
+        if NSFileManager.defaultManager().createFileAtPath(fullPath, contents: data, attributes: nil) {
+            return url
         }
-        return NSFileManager.defaultManager().createFileAtPath(fullPath, contents: data, attributes: nil)
+        return nil
     }
     
     /** Change image size */
