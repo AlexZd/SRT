@@ -31,6 +31,10 @@ extension String {
         return self.lowercaseString
     }
     
+    @available(*, deprecated=1.0, message="Use `capFirst` instead") public var capitalizedFirstString : String {
+        return self.capFirst
+    }
+    
     /** Returns localizedCapitalizedString for iOS 9+ or capitalizedString for below */
     public var cap: String {
         if #available(iOS 9, *) {
