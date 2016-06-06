@@ -64,4 +64,22 @@ extension String {
             return self
         }
     }
+    
+    /** Returns array of ranges of substring */
+    public func rangesOfSubstring(string:String) -> Array<NSRange> {
+        var searchRange = NSMakeRange(0, self.characters.count)
+        var ranges : Array<NSRange> = []
+        
+        while searchRange.location < self.characters.count {
+            searchRange.length = self.characters.count - searchRange.location
+            let foundRange = (self as NSString).rangeOfString(string, options: NSStringCompareOptions.CaseInsensitiveSearch, range: searchRange)
+            if foundRange.location != NSNotFound {
+                ranges.append(foundRange)
+                searchRange.location = foundRange.location + foundRange.length
+            } else {
+                break
+            }
+        }
+        return ranges
+    }
 }
