@@ -22,4 +22,14 @@ extension NSObject {
             ),
             dispatch_get_main_queue(), closure)
     }
+    
+    /** Do something in background */
+    public static func background(queuePriority: dispatch_queue_priority_t = DISPATCH_QUEUE_PRIORITY_DEFAULT, closure: () -> Void) {
+        dispatch_async(dispatch_get_global_queue(queuePriority, 0), closure)
+    }
+    
+    /** Do something in main */
+    public static func main(closure: () -> Void) {
+        dispatch_async(dispatch_get_main_queue(), closure)
+    }
 }
