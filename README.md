@@ -1,18 +1,18 @@
-# SwiftyUtils
+# SRT
 
-[![CI Status](http://img.shields.io/travis/Alex Zdorovets/SwiftyUtils.svg?style=flat)](https://travis-ci.org/Alex Zdorovets/SwiftyUtils)
-[![Version](https://img.shields.io/cocoapods/v/SwiftyUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftyUtils)
-[![License](https://img.shields.io/cocoapods/l/SwiftyUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftyUtils)
-[![Platform](https://img.shields.io/cocoapods/p/SwiftyUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftyUtils)
+[![CI Status](http://img.shields.io/travis/Alex Zdorovets/SRT.svg?style=flat)](https://travis-ci.org/Alex Zdorovets/SRT)
+[![Version](https://img.shields.io/cocoapods/v/SRT.svg?style=flat)](http://cocoapods.org/pods/SRT)
+[![License](https://img.shields.io/cocoapods/l/SRT.svg?style=flat)](http://cocoapods.org/pods/SRT)
+[![Platform](https://img.shields.io/cocoapods/p/SRT.svg?style=flat)](http://cocoapods.org/pods/SRT)
 
 
 ## Installation
 
-SwiftyUtils is available through [CocoaPods](http://cocoapods.org). To install
+SRT is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SwiftyUtils'
+pod 'SRT'
 ```
 
 ## Author
@@ -21,4 +21,4 @@ Alex Z, alexzd89@mail.ru
 
 ## License
 
-SwiftyUtils is available under the MIT license. See the LICENSE file for more info.
+SRT is available under the MIT license. See the LICENSE file for more info.
