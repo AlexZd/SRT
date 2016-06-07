@@ -9,6 +9,11 @@ import Foundation
 
 extension String {
     
+    /** Returns length of string */
+    public var length: Int {
+        return self.characters.count
+    }
+    
     /** Returns first char */
     public var first: String { return String(self.characters.prefix(1)) }
     
@@ -63,6 +68,11 @@ extension String {
         } else {
             return self
         }
+    }
+    
+    /** Returns `true` in case string contains substring */
+    func contains(substring: String) -> Bool {
+        return self.rangeOfString(substring) != nil
     }
     
     /** Returns array of ranges of substring */
