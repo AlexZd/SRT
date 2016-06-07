@@ -1,6 +1,6 @@
-# SwiftUtils
+# SwiftyUtils
 
-[![CI Status](http://img.shields.io/travis/Alex Zdorovets/SwiftUtils.svg?style=flat)](https://travis-ci.org/Alex Zdorovets/SwiftyUtils)
+[![CI Status](http://img.shields.io/travis/Alex Zdorovets/SwiftyUtils.svg?style=flat)](https://travis-ci.org/Alex Zdorovets/SwiftyUtils)
 [![Version](https://img.shields.io/cocoapods/v/SwiftyUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftyUtils)
 [![License](https://img.shields.io/cocoapods/l/SwiftyUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftyUtils)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftyUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftyUtils)
@@ -8,7 +8,7 @@
 
 ## Installation
 
-SwiftUtils is available through [CocoaPods](http://cocoapods.org). To install
+SwiftyUtils is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
