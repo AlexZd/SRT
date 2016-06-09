@@ -8,10 +8,10 @@
 
 import Foundation
 
-public enum Folder {
-    case Documents
-    case Cache
-    case Temp
+public enum Folder: String {
+    case Documents = "Documents"
+    case Cache = "Cache"
+    case Temp = "Temp"
     
     public var path : String {
         switch self {
@@ -20,6 +20,8 @@ public enum Folder {
         case .Temp: return NSFileManager.Directory.Temp
         }
     }
+    
+    public static let allValues: Array<Folder> = [.Documents, .Cache, .Temp]
 }
 
 extension NSFileManager {
