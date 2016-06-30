@@ -74,6 +74,8 @@ extension UIView {
     public func setEdgeConstaints(edges:UIEdgeInsets, update:Bool) {
         guard let superview = self.superview else { return }
         
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
         let leading = NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: superview, attribute: .Leading, multiplier: 1, constant: 0)
         let trailing = NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: superview, attribute: .Trailing, multiplier: 1, constant: 0)
         let top = NSLayoutConstraint(item: self, attribute: .Top, relatedBy: .Equal, toItem: superview, attribute: .Top, multiplier: 1, constant: 0)
