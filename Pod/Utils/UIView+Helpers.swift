@@ -40,7 +40,12 @@ extension UIView {
     public func setWidth(width:CGFloat, update:Bool) {
         var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Width && $0.isMemberOfClass(NSLayoutConstraint)}).first
         if cnst == nil {
-            cnst = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: width)
+            if #available(iOS 9, *) {
+                self.widthAnchor.constraintEqualToConstant(width).active = true
+            } else {
+                cnst = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: width)
+                self.addConstraint(cnst!)
+            }
         }
         cnst?.constant = width
         if update{
@@ -52,7 +57,12 @@ extension UIView {
     public func setHeight(height:CGFloat, update:Bool) {
         var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Height && $0.isMemberOfClass(NSLayoutConstraint)}).first
         if cnst == nil {
-            cnst = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height)
+            if #available(iOS 9, *) {
+                self.heightAnchor.constraintEqualToConstant(height).active = true
+            } else {
+                cnst = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height)
+                self.addConstraint(cnst!)
+            }
         }
         cnst?.constant = height
         if update{
