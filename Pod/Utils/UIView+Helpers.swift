@@ -38,8 +38,11 @@ extension UIView {
     
     /** Changes UIView width constraint and updates for superview */
     public func setWidth(width:CGFloat, update:Bool) {
-        let cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Width && $0.isMemberOfClass(NSLayoutConstraint)}).first!
-        cnst.constant = width
+        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Width && $0.isMemberOfClass(NSLayoutConstraint)}).first
+        if cnst == nil {
+            cnst = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: width)
+        }
+        cnst?.constant = width
         if update{
             updateConstraints()
         }
@@ -47,10 +50,27 @@ extension UIView {
     
     /** Changes UIView height constraint and updates for superview */
     public func setHeight(height:CGFloat, update:Bool) {
-        let cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Height && $0.isMemberOfClass(NSLayoutConstraint)}).first!
-        cnst.constant = height
+        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Height && $0.isMemberOfClass(NSLayoutConstraint)}).first
+        if cnst == nil {
+            cnst = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height)
+        }
+        cnst?.constant = height
         if update{
             updateConstraints()
+        }
+    }
+    
+    /** Adds constraints to superview */
+    public func setEdgeConstaints(edges:UIEdgeInsets, update:Bool) {
+        guard let superview = self.superview else { return }
+        
+        let leading = NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: superview, attribute: .Leading, multiplier: 1, constant: 0)
+        let trailing = NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: superview, attribute: .Trailing, multiplier: 1, constant: 0)
+        let top = NSLayoutConstraint(item: self, attribute: .Top, relatedBy: .Equal, toItem: superview, attribute: .Top, multiplier: 1, constant: 0)
+        let bottom = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: superview, attribute: .Bottom, multiplier: 1, constant: 0)
+        superview.addConstraints([top, leading, trailing, bottom])
+        if update{
+            superview.updateConstraints()
         }
     }
 
