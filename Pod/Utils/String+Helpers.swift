@@ -55,9 +55,8 @@ extension String {
     
     /** Converts String to Gregorian NSDate */
     public func stringToDate(mask:String) -> NSDate? {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter(dateFormat: mask)
         dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        dateFormatter.dateFormat = mask
         return dateFormatter.dateFromString(self)
     }
     
