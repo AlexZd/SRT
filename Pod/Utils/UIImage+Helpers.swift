@@ -47,8 +47,8 @@ extension UIImage {
     }
     
     /** Creates an UIImage which has size 1x1 with selected color */
-    public class func imageWithColor(color:UIColor) -> UIImage {
-        let rect = CGRectMake(0, 0, 1, 1)
+    public class func imageWithColor(color:UIColor, size:CGSize? = nil) -> UIImage {
+        let rect = CGRectMake(0, 0, size?.width ?? 1, size?.height ?? 1)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
         
