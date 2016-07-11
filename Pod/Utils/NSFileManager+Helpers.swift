@@ -9,9 +9,9 @@
 import Foundation
 
 public enum Folder: String {
-    case Documents = "Documents"
-    case Cache = "Cache"
-    case Temp = "Temp"
+    case Documents = "documents"
+    case Cache = "cache"
+    case Temp = "temp"
     
     public var path : String {
         switch self {
