@@ -11,7 +11,7 @@ extension NSUserDefaults {
     
     //MARK: - Class
     
-    public class func get<T>(key:String) -> T? {
+    public class func get(key:String) -> AnyObject? {
         return NSUserDefaults.standardUserDefaults().get(key)
     }
     
@@ -21,8 +21,8 @@ extension NSUserDefaults {
     
     //MARK: - Instance
     
-    public func get<T>(key:String) -> T? {
-        return NSUserDefaults.standardUserDefaults().valueForKey(key) as? T
+    public func get(key:String) -> AnyObject? {
+        return NSUserDefaults.standardUserDefaults().valueForKey(key)
     }
     
     public func set(value: AnyObject?, key: String, synchronize: Bool = true) {
