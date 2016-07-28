@@ -29,10 +29,10 @@ extension NSNumber {
         return formatter.stringFromNumber(self)!
     }
     
-    public func thousandSeparated(separator:String?) -> String {
+    public func thousandSeparated(separator:String? = nil) -> String {
         let nf = NSNumberFormatter()
         if separator != nil {
-                nf.groupingSeparator = separator
+            nf.groupingSeparator = separator
         }
         nf.numberStyle = NSNumberFormatterStyle.DecimalStyle
         return nf.stringFromNumber(self)!
