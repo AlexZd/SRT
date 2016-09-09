@@ -11,6 +11,21 @@ import CoreTelephony.CTTelephonyNetworkInfo
 import CoreTelephony.CTCarrier
 
 extension UIApplication {
+    
+    //MARK: - App Details
+    
+    public class var appName : String {
+        return NSBundle.mainBundle().infoDictionary!["CFBundleName"] as! String
+    }
+    
+    public class var appVersion : String {
+        return NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+    }
+    
+    public class var appBuildNumber : String {
+        return NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
+    }
+    
     //MARK: - Safari
     
     public class func openUrl(url:NSURL?) {
