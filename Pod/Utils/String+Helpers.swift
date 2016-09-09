@@ -44,7 +44,7 @@ extension String {
     
     /** Returns string with first capitalized letter */
     public var capFirst: String {
-        return self.first.up + String(self.characters.dropFirst())
+        return String(characters.prefix(1)).up + String(self.characters.dropFirst())
     }
     
     /** Converts String to Gregorian NSDate */
