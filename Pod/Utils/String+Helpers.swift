@@ -14,12 +14,6 @@ extension String {
         return self.characters.count
     }
     
-    /** Returns first char */
-    public var first: String { return String(self.characters.prefix(1)) }
-    
-    /** Returns last char */
-    public var last: String { return String(self.characters.suffix(1)) }
-    
     /** Returns localizedUppercaseString for iOS 9+ or uppercaseString for below */
     public var up: String {
         if #available(iOS 9, *) {
