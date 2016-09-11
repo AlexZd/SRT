@@ -26,6 +26,10 @@ extension UIApplication {
         return NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
     }
     
+    public class var bundleIdentifier : String {
+        return NSBundle.mainBundle().bundleIdentifier ?? ""
+    }
+    
     //MARK: - Safari
     
     public class func openUrl(url:NSURL?) {
