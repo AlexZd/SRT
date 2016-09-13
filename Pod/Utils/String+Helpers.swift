@@ -85,4 +85,10 @@ extension String {
         }
         return ranges
     }
+    
+    /** Trim whitespaceAndNewlineCharacterSet */
+    
+    public func trim() -> String {
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
 }
