@@ -8,12 +8,12 @@
 
 import Foundation
 
-extension CollectionType {
+extension Collection {
     
     /** Get first non-empty object */
-    public var firstNonEmpty: Self.Generator.Element? {
+    public var firstNonEmpty: Self.Iterator.Element? {
         for object in self {
-            if (object as? AnyObject)?.isKindOfClass(NSNull) == false && (object as? String)?.isEmpty != true {
+            if (object as? AnyObject)?.isKind(of: NSNull.self) == false && (object as? String)?.isEmpty != true {
                 return object
             }
         }
@@ -21,9 +21,9 @@ extension CollectionType {
     }
     
     /** Get last non-empty object */
-    public var lastNonEmpty: Self.Generator.Element? {
-        for object in self.reverse() {
-            if (object as? AnyObject)?.isKindOfClass(NSNull) == false && (object as? String)?.isEmpty != true {
+    public var lastNonEmpty: Self.Iterator.Element? {
+        for object in self.reversed() {
+            if (object as? AnyObject)?.isKind(of: NSNull.self) == false && (object as? String)?.isEmpty != true {
                 return object
             }
         }

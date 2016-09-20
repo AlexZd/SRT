@@ -12,8 +12,8 @@ extension UILabel{
     /** Width for current text in label */
     public var labelWidth : CGFloat {
         get {
-            let rect = text!.boundingRectWithSize(CGSizeMake(CGFloat.max, frame.size.height),
-                options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+            let rect = text!.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: frame.size.height),
+                options: .usesLineFragmentOrigin,
                 attributes:[NSFontAttributeName: font],
                 context:nil)
             
@@ -24,8 +24,8 @@ extension UILabel{
     /** Height for current text in label */
     public var labelHeight : CGFloat {
         get {
-            let rect = text!.boundingRectWithSize(CGSizeMake(frame.size.width, CGFloat.max),
-                options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+            let rect = text!.boundingRect(with: CGSize(width: frame.size.width, height: CGFloat.greatestFiniteMagnitude),
+                options: .usesLineFragmentOrigin,
                 attributes:[NSFontAttributeName: font],
                 context:nil)
             
@@ -36,21 +36,21 @@ extension UILabel{
     /** Width for current text in label with SizeToFit method */
     public var labelWidthSizeToFit : CGFloat {
         get {
-            let sizeNew = sizeThatFits(CGSizeMake(CGFloat.max, frame.size.height))
+            let sizeNew = sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: frame.size.height))
             return sizeNew.width
         }
     }
     /** Height for current text in label with SizeToFit method */
     public var labelHeightSizeToFit : CGFloat {
         get {
-            let sizeNew = sizeThatFits(CGSizeMake(frame.size.width, CGFloat.max))
+            let sizeNew = sizeThatFits(CGSize(width: frame.size.width, height: CGFloat.greatestFiniteMagnitude))
             return sizeNew.height
         }
     }
     
     /** Changes width constraint to fit text*/
     public func widthToFitConstraint(update:Bool) {
-        setWidth(self.labelWidthSizeToFit, update: update)
+        self.setWidth(width: self.labelWidthSizeToFit, update: update)
     }
     
     /** Get size for current text in label with max and min size */
@@ -78,8 +78,8 @@ extension UILabel{
         layoutManager.addTextContainer(textContainer)
         
         var glyphRange : NSRange = NSRange(location: 0, length: 1)
-        layoutManager.characterRangeForGlyphRange(range, actualGlyphRange: &glyphRange)
+        layoutManager.characterRange(forGlyphRange: range, actualGlyphRange: &glyphRange)
         
-        return layoutManager.boundingRectForGlyphRange(glyphRange, inTextContainer: textContainer)
+        return layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
     }
 }

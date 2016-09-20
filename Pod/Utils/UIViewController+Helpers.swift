@@ -9,31 +9,31 @@ import UIKit
 
 extension UIViewController {
     public func showError(error:NSError) {
-        self.showError("Error", error: error)
+        self.showError(title: "Error", error: error)
     }
     
     public func showError(title:String, error:NSError) {
         let CRUDResponseDataKey = "CRUDResponseDataKey"
-        if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? Array<String> where errorsInfo.isEmpty == false {
-            self.showAlert(title, text: errorsInfo.first)
-        } else if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? Dictionary<String,String> where errorsInfo.isEmpty == false {
-            self.showAlert(title, text: errorsInfo["error"])
+        if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? Array<String>, errorsInfo.isEmpty == false {
+            self.showAlert(title: title, text: errorsInfo.first)
+        } else if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? Dictionary<String,String>,  errorsInfo.isEmpty == false {
+            self.showAlert(title: title, text: errorsInfo["error"])
         } else {
-            self.showAlert(title, text: error.localizedDescription)
+            self.showAlert(title: title, text: error.localizedDescription)
         }
     }
     
     public func showAlert(title:String, text:String?) {
-        let alert = UIAlertController(title: title, message: text, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "").uppercaseString, style: .Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "").uppercased(), style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     public func fixIOS9PopOverAnchor(segue:UIStoryboardSegue?) {
         guard #available(iOS 9.0, *) else {
             return
         }
-        if let popOver = segue?.destinationViewController.popoverPresentationController, let anchor  = popOver.sourceView where popOver.sourceRect == CGRect() && segue!.sourceViewController === self {
+        if let popOver = segue?.destination.popoverPresentationController, let anchor  = popOver.sourceView, popOver.sourceRect == CGRect() && segue!.source === self {
             popOver.sourceRect = anchor.bounds
         }
     }

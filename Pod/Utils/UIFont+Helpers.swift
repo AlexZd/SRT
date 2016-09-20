@@ -10,9 +10,9 @@ import UIKit
 extension UIFont {
     /** Prints Fonts list */
     public class func listOfFonts() {
-        for family in UIFont.familyNames() {
+        for family in UIFont.familyNames {
             print("\nFamily: \(family)")
-            for font in UIFont.fontNamesForFamilyName(family) {
+            for font in UIFont.fontNames(forFamilyName: family) {
                 print("\tFont: \(font)\n")
             }
         }

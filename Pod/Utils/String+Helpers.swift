@@ -17,29 +17,29 @@ extension String {
     /** Returns localizedUppercaseString for iOS 9+ or uppercaseString for below */
     public var up: String {
         if #available(iOS 9, *) {
-            return self.localizedUppercaseString
+            return self.localizedUppercase
         }
-        return self.uppercaseString
+        return self.uppercased()
     }
     
     /** Returns localizedLowercaseString for iOS 9+ or lowercaseString for below */
     public var down: String {
         if #available(iOS 9, *) {
-            return self.localizedLowercaseString
+            return self.localizedLowercase
         }
-        return self.lowercaseString
+        return self.lowercased()
     }
     
-    @available(*, deprecated=1.0, message="Use `capFirst` instead") public var capitalizedFirstString : String {
+    @available(*, deprecated: 1.0, message: "Use `capFirst` instead") public var capitalizedFirstString : String {
         return self.capFirst
     }
     
     /** Returns localizedCapitalizedString for iOS 9+ or capitalizedString for below */
     public var cap: String {
         if #available(iOS 9, *) {
-            return self.localizedCapitalizedString
+            return self.localizedCapitalized
         }
-        return self.capitalizedString
+        return self.capitalized
     }
     
     /** Returns string with first capitalized letter */
@@ -48,16 +48,16 @@ extension String {
     }
     
     /** Converts String to Gregorian NSDate */
-    public func stringToDate(mask:String) -> NSDate? {
-        let dateFormatter = NSDateFormatter(dateFormat: mask)
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        return dateFormatter.dateFromString(self)
+    public func toDate(_ mask:String) -> Date? {
+        let dateFormatter = DateFormatter(dateFormat: mask)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return dateFormatter.date(from: self)
     }
     
     /** Returns truncated string with ending which you spicify in trailing */
     public func trunc(length: Int, trailing: String? = "...") -> String {
         if self.characters.count > length {
-            return self.substringToIndex(self.startIndex.advancedBy(length)) + (trailing ?? "")
+            return self.substring(to: self.index(self.startIndex, offsetBy: length)) + (trailing ?? "")
         } else {
             return self
         }
@@ -65,17 +65,17 @@ extension String {
     
     /** Returns `true` in case string contains substring */
     func contains(substring: String) -> Bool {
-        return self.rangeOfString(substring) != nil
+        return self.ranges(of: substring) != nil
     }
     
     /** Returns array of ranges of substring */
-    public func rangesOfSubstring(string:String) -> Array<NSRange> {
+    public func ranges(of string:String) -> Array<NSRange> {
         var searchRange = NSMakeRange(0, self.characters.count)
         var ranges : Array<NSRange> = []
         
         while searchRange.location < self.characters.count {
             searchRange.length = self.characters.count - searchRange.location
-            let foundRange = (self as NSString).rangeOfString(string, options: NSStringCompareOptions.CaseInsensitiveSearch, range: searchRange)
+            let foundRange = (self as NSString).range(of: string, options: .caseInsensitive, range: searchRange)
             if foundRange.location != NSNotFound {
                 ranges.append(foundRange)
                 searchRange.location = foundRange.location + foundRange.length
@@ -86,9 +86,8 @@ extension String {
         return ranges
     }
     
-    /** Trim whitespaceAndNewlineCharacterSet */
-    
+    /** Trim whitespacesAndNewlines */
     public func trim() -> String {
-        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        return self.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
     }
 }

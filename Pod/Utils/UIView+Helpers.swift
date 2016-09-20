@@ -11,39 +11,33 @@ extension UIView {
     
     /** Returns UIView's class name. */
     public class var className : String {
-        get {
-            return NSStringFromClass(self.classForCoder()).componentsSeparatedByString(".").last!
-        }
+        return NSStringFromClass(self.classForCoder()).components(separatedBy: ".").last!
     }
     
     /** Returns UIView's nib. */
     public class var nib : UINib {
-        get {
-            return UINib(nibName: self.className, bundle: nil)
-        }
+        return UINib(nibName: self.className, bundle: nil)
     }
     
     /** Get value of height constraint of UIView*/
     public var heightOfContstraint : CGFloat {
-        get {
-            let cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Height && $0.isMemberOfClass(NSLayoutConstraint)}).first!
-            return cnst.constant
-        }
+        let cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first!
+        return cnst.constant
     }
     
     /** Returns entity from it's nib. Nib should have same name as class name. */
-    public class func getFromNib() -> AnyObject {
-        return NSBundle.mainBundle().loadNibNamed(self.className, owner: self, options: nil).first!
+    public class func getFromNib() -> Any {
+        return Bundle.main.loadNibNamed(self.className, owner: self, options: nil)!.first!
     }
     
     /** Changes UIView width constraint and updates for superview */
     public func setWidth(width:CGFloat, update:Bool) {
-        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Width && $0.isMemberOfClass(NSLayoutConstraint)}).first
+        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.width && $0.isMember(of: NSLayoutConstraint.self)}).first
         if cnst == nil {
             if #available(iOS 9, *) {
-                self.widthAnchor.constraintEqualToConstant(width).active = true
+                self.widthAnchor.constraint(equalToConstant: width).isActive = true
             } else {
-                cnst = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: width)
+                cnst = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: width)
                 self.addConstraint(cnst!)
             }
         }
@@ -55,12 +49,12 @@ extension UIView {
     
     /** Changes UIView height constraint and updates for superview */
     public func setHeight(height:CGFloat, update:Bool) {
-        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.Height && $0.isMemberOfClass(NSLayoutConstraint)}).first
+        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first
         if cnst == nil {
             if #available(iOS 9, *) {
-                self.heightAnchor.constraintEqualToConstant(height).active = true
+                self.heightAnchor.constraint(equalToConstant: height).isActive = true
             } else {
-                cnst = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height)
+                cnst = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: height)
                 self.addConstraint(cnst!)
             }
         }
@@ -76,10 +70,10 @@ extension UIView {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let leading = NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: superview, attribute: .Leading, multiplier: 1, constant: edges.left)
-        let trailing = NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: superview, attribute: .Trailing, multiplier: 1, constant: -1 * edges.right)
-        let top = NSLayoutConstraint(item: self, attribute: .Top, relatedBy: .Equal, toItem: superview, attribute: .Top, multiplier: 1, constant: edges.top)
-        let bottom = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: superview, attribute: .Bottom, multiplier: 1, constant: -1 * edges.bottom)
+        let leading = NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: superview, attribute: .leading, multiplier: 1, constant: edges.left)
+        let trailing = NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: superview, attribute: .trailing, multiplier: 1, constant: -1 * edges.right)
+        let top = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: superview, attribute: .top, multiplier: 1, constant: edges.top)
+        let bottom = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: superview, attribute: .bottom, multiplier: 1, constant: -1 * edges.bottom)
         superview.addConstraints([top, leading, trailing, bottom])
         if update{
             superview.updateConstraints()
@@ -91,20 +85,20 @@ extension UIView {
         let animation = CAKeyframeAnimation()
         animation.keyPath = "position.x"
         animation.values = [0, 20, -20, 10, 0];
-        animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
+        animation.keyTimes = [0, NSNumber(value: (1 / 6.0)), NSNumber(value: (3 / 6.0)), NSNumber(value: (5 / 6.0)), 1]
         animation.duration = 0.3
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        animation.additive = true
+        animation.isAdditive = true
         
-        self.layer.addAnimation(animation, forKey: "shake")
+        self.layer.add(animation, forKey: "shake")
     }
     
     /** Screenshot of current view */
     public var screenshot : UIImage {
         UIGraphicsBeginImageContext(self.frame.size)
-        self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 }

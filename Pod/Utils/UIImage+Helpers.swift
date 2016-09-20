@@ -13,7 +13,7 @@ extension UIImage {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = frame
         
-        gradientLayer.colors = colors.map({ $0.CGColor })
+        gradientLayer.colors = colors.map({ $0.cgColor })
         
         if horizontal {
             gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
@@ -22,53 +22,57 @@ extension UIImage {
         
         // now build a UIImage from the gradient
         UIGraphicsBeginImageContext(gradientLayer.bounds.size)
-        gradientLayer.renderInContext(UIGraphicsGetCurrentContext()!)
+        gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
         let gradientImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return gradientImage
+        return gradientImage!
     }
     
     /** Converting a color image to gray scale */
     public func convertToGrayScale() -> UIImage {
-        let imageRect:CGRect = CGRectMake(0, 0, self.size.width, self.size.height)
+        let imageRect:CGRect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
         let colorSpace = CGColorSpaceCreateDeviceGray()
         let width = self.size.width
         let height = self.size.height
         
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.None.rawValue)
-        let context = CGBitmapContextCreate(nil, Int(width), Int(height), 8, 0, colorSpace, bitmapInfo.rawValue)
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
         
-        CGContextDrawImage(context, imageRect, self.CGImage)
-        let imageRef = CGBitmapContextCreateImage(context)
-        let newImage = UIImage(CGImage: imageRef!)
+        context?.draw(self.cgImage!, in: imageRect)
+
+        let imageRef = context?.makeImage()
+        let newImage = UIImage(cgImage: imageRef!)
         
         return newImage
     }
     
     /** Creates an UIImage which has size 1x1 with selected color */
     public class func imageWithColor(color:UIColor, size:CGSize? = nil) -> UIImage {
-        let rect = CGRectMake(0, 0, size?.width ?? 1, size?.height ?? 1)
+        let rect = CGRect(x: 0, y: 0, width: size?.width ?? 1, height: size?.height ?? 1)
         UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
         
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, rect)
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         return image
     }
     
     /** Saves image to Application folder with name */
-    public func save(name:String, folder:Folder) -> NSURL? {
+    public func save(name:String, folder:Folder) -> URL? {
         let data = UIImageJPEGRepresentation(self, 1)
-        let url = NSURL(fileURLWithPath: folder.path).URLByAppendingPathComponent(name)
-        if data?.writeToURL(url, atomically: true) == true {
+        let url = URL(fileURLWithPath: folder.path).appendingPathComponent(name)
+        do {
+            try data?.write(to: url)
             return url
+        } catch {
+            print(error)
+            return nil
         }
-        return nil
     }
     
     /** Change image size */
@@ -77,18 +81,18 @@ extension UIImage {
         var newSize = maxSize
         if self.size.width > self.size.height {
             let k = self.size.height / self.size.width
-            newSize = CGSizeMake(maxSize.width, maxSize.width * k)
+            newSize = CGSize(width: maxSize.width, height: maxSize.width * k)
         } else {
             let k = self.size.width / self.size.height
-            newSize = CGSizeMake(maxSize.height * k, maxSize.height)
+            newSize = CGSize(width: maxSize.height * k, height: maxSize.height)
         }
-        return self.resizeImageToExactSize(newSize)
+        return self.resizeImageToExactSize(size: newSize)
     }
     
     public func resizeImageToExactSize(size:CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
-        self.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
     }
@@ -100,20 +104,20 @@ extension UIImage {
         }
         
         // calculate the size of the rotated view's containing box for our drawing space
-        let rotatedViewBox = UIView(frame: CGRect(origin: CGPointZero, size: size))
-        let t = CGAffineTransformMakeRotation(degreesToRadians(degrees));
+        let rotatedViewBox = UIView(frame: CGRect(origin: CGPoint.zero, size: size))
+        let t = CGAffineTransform(rotationAngle: degreesToRadians(degrees));
         rotatedViewBox.transform = t
         let rotatedSize = rotatedViewBox.frame.size
         
         // Create the bitmap context
         UIGraphicsBeginImageContext(rotatedSize)
-        let bitmap = UIGraphicsGetCurrentContext()
+        let bitmap = UIGraphicsGetCurrentContext()!
         
         // Move the origin to the middle of the image so we will rotate and scale around the center.
-        CGContextTranslateCTM(bitmap, rotatedSize.width / 2.0, rotatedSize.height / 2.0);
+        bitmap.translateBy(x: rotatedSize.width / 2.0, y: rotatedSize.height / 2.0);
         
-        //   // Rotate the image context
-        CGContextRotateCTM(bitmap, degreesToRadians(degrees));
+        // Rotate the image context
+        bitmap.rotate(by: degreesToRadians(degrees));
         
         // Now, draw the rotated/scaled image into the context
         var yFlip: CGFloat
@@ -124,10 +128,10 @@ extension UIImage {
             yFlip = CGFloat(1.0)
         }
         
-        CGContextScaleCTM(bitmap, yFlip, -1.0)
-        CGContextDrawImage(bitmap, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage)
+        bitmap.scaleBy(x: yFlip, y: -1.0)
+        bitmap.draw(self.cgImage!, in: CGRect(x: -size.width / 2, y: -size.height / 2, width: size.width, height: size.height))
         
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         return newImage

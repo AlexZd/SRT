@@ -18,7 +18,7 @@ extension Int {
     
     /** Returns thousand separated representation of number */
     public func thousandSeparated(separator:String?) -> String {
-        return NSNumber(integer: self).thousandSeparated(separator)
+        return NSNumber(value: self).thousandSeparated(separator: separator)
     }
     
     

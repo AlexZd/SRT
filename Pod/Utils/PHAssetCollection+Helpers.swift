@@ -8,13 +8,13 @@
 
 import Photos
 
-public typealias PhotosCompletionBlock = (collection: PHAssetCollection?) -> Void
-public typealias PhotosAddImageCompletionBlock = (assetPlaceholder:PHObjectPlaceholder?, error: NSError?) -> Void
+public typealias PhotosCompletionBlock = (_ collection: PHAssetCollection?) -> Void
+public typealias PhotosAddImageCompletionBlock = (_ assetPlaceholder:PHObjectPlaceholder?, _ error: Error?) -> Void
 
 extension PHAssetCollection {
     public class func saveImageToAlbum(image:UIImage, albumName:String, completionBlock:PhotosAddImageCompletionBlock?) {
-        self.findOrCreateAlbum(albumName) { (collection) -> Void in
-            collection?.addImage(image, completionBlock: completionBlock)
+        self.findOrCreateAlbum(name: albumName) { (collection) -> Void in
+            collection?.addImage(image: image, completionBlock: completionBlock)
         }
     }
     
@@ -22,21 +22,21 @@ extension PHAssetCollection {
     public class func findOrCreateAlbum(name:String, completionBlock:PhotosCompletionBlock?) {
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", name)
-        let collection = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: .Any, options: fetchOptions)
-        if let first = collection.firstObject as? PHAssetCollection {
-            completionBlock?(collection: first)
+        let collection = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.album, subtype: .any, options: fetchOptions)
+        if let first = collection.firstObject {
+            completionBlock?(first)
         }else{
             var assetCollectionPlaceholder : PHObjectPlaceholder!
-            PHPhotoLibrary.sharedPhotoLibrary().performChanges({
-                let createAlbumRequest : PHAssetCollectionChangeRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(name)
+            PHPhotoLibrary.shared().performChanges({
+                let createAlbumRequest : PHAssetCollectionChangeRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: name)
                 assetCollectionPlaceholder = createAlbumRequest.placeholderForCreatedAssetCollection
                 }, completionHandler: { success, error in
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         if (success) {
-                            let collectionFetchResult = PHAssetCollection.fetchAssetCollectionsWithLocalIdentifiers([assetCollectionPlaceholder.localIdentifier], options: nil)
-                            completionBlock?(collection: collectionFetchResult.firstObject as? PHAssetCollection)
+                            let collectionFetchResult = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [assetCollectionPlaceholder.localIdentifier], options: nil)
+                            completionBlock?(collectionFetchResult.firstObject)
                         }
-                        completionBlock?(collection: nil)
+                        completionBlock?(nil)
                     }
             })
         }
@@ -46,15 +46,16 @@ extension PHAssetCollection {
     /** Adds UIImage to current album */
     public func addImage(image:UIImage, completionBlock:PhotosAddImageCompletionBlock?) {
         var assetPlaceholder : PHObjectPlaceholder?
-        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
-            let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+        PHPhotoLibrary.shared().performChanges({ () -> Void in
+            let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
             assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
-            if let albumChangeRequest = PHAssetCollectionChangeRequest(forAssetCollection: self) {
-                albumChangeRequest.addAssets([assetPlaceholder!])
+            if let albumChangeRequest = PHAssetCollectionChangeRequest(for: self) {
+                let fastEnumeration = NSArray(array: [assetPlaceholder!] as [PHObjectPlaceholder])
+                albumChangeRequest.addAssets(fastEnumeration)
             }
         }) { (success, error) -> Void in
-            dispatch_async(dispatch_get_main_queue()) {
-                completionBlock?(assetPlaceholder: assetPlaceholder, error: error)
+            DispatchQueue.main.async {
+                completionBlock?(assetPlaceholder, error)
             }
         }
     }

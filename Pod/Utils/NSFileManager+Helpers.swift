@@ -9,37 +9,37 @@
 import Foundation
 
 public enum Folder: String {
-    case Documents = "documents"
-    case Cache = "cache"
-    case Temp = "temp"
+    case documents = "documents"
+    case cache = "cache"
+    case temp = "temp"
     
     public var path : String {
         switch self {
-        case .Documents: return NSFileManager.Directory.Documents
-        case .Cache: return NSFileManager.Directory.Cache
-        case .Temp: return NSFileManager.Directory.Temp
+        case .documents: return FileManager.Directory.Documents
+        case .cache: return FileManager.Directory.Cache
+        case .temp: return FileManager.Directory.Temp
         }
     }
     
-    public static let allValues: Array<Folder> = [.Documents, .Cache, .Temp]
+    public static let allValues: Array<Folder> = [.documents, .cache, .temp]
 }
 
-extension NSFileManager {
+extension FileManager {
     
     public struct Directory {
-        public static let Documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
-        public static let Cache = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true).first!
+        public static let Documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        public static let Cache = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
         public static let Temp = NSTemporaryDirectory()
     }
     
     /** Print list of Documents files */
     public class func listFiles(folder:String?) {
-        var paths = NSFileManager.Directory.Documents
+        var paths = FileManager.Directory.Documents
         if let folder = folder {
-            paths = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent(folder).path!
+            paths = URL(fileURLWithPath: paths).appendingPathComponent(folder).path
         }
         do {
-            let directoryContent = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(paths)
+            let directoryContent = try FileManager.default.contentsOfDirectory(atPath: paths)
             print("+--------------------------------------+")
             print("| FILES:                               |")
             print("+--------------------------------------+")
@@ -54,9 +54,9 @@ extension NSFileManager {
     
     /** Remove file with name from Documents folder */
     public class func removeFile(fileName:String) {
-        let fileURL = NSURL(fileURLWithPath: NSFileManager.Directory.Documents).URLByAppendingPathComponent(fileName)
+        let fileURL = URL(fileURLWithPath: FileManager.Directory.Documents).appendingPathComponent(fileName)
         do {
-            try NSFileManager.defaultManager().removeItemAtURL(fileURL)
+            try FileManager.default.removeItem(at: fileURL)
             print("File \(fileName) removed")
         } catch let error as NSError {
             print("Could not delete file: \(error)")
@@ -65,12 +65,10 @@ extension NSFileManager {
     
     /** Remove file at path */
     public class func removeFileAt(path:String?) {
-        guard let path = path else {
-            return
-        }
-        let fileURL = NSURL(fileURLWithPath: path)
+        guard let path = path else { return }
+        let fileURL = URL(fileURLWithPath: path)
         do {
-            try NSFileManager.defaultManager().removeItemAtURL(fileURL)
+            try FileManager.default.removeItem(at: fileURL)
             print("File at \(path) removed")
         } catch let error as NSError {
             print("Could not delete file: \(error)")

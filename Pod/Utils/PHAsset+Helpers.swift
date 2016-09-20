@@ -12,11 +12,11 @@ import Photos
 extension PHAsset {
     
     public var originalImage : UIImage? {
-        let manager = PHImageManager.defaultManager()
+        let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
-        option.synchronous = true
+        option.isSynchronous = true
         var image : UIImage?
-        manager.requestImageForAsset(self, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFit, options: option, resultHandler: { (result, info) ->Void in
+        manager.requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option, resultHandler: { (result, info) ->Void in
             image = result
         })
         return image

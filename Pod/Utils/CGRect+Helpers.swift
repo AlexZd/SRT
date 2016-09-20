@@ -11,7 +11,7 @@ import Foundation
 extension CGRect {
     
     public var center : CGPoint {
-        return CGPointMake(CGRectGetMidX(self), CGRectGetMidY(self))
+        return CGPoint(x: self.midX, y: self.midY)
     }
     
 }

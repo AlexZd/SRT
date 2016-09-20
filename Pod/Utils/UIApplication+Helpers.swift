@@ -15,39 +15,39 @@ extension UIApplication {
     //MARK: - App Details
     
     public class var appName : String {
-        return NSBundle.mainBundle().infoDictionary!["CFBundleName"] as! String
+        return Bundle.main.infoDictionary!["CFBundleName"] as! String
     }
     
     public class var appVersion : String {
-        return NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+        return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
     }
     
     public class var appBuildNumber : String {
-        return NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
+        return Bundle.main.infoDictionary!["CFBundleVersion"] as! String
     }
     
     public class var bundleIdentifier : String {
-        return NSBundle.mainBundle().bundleIdentifier ?? ""
+        return Bundle.main.bundleIdentifier ?? ""
     }
     
     //MARK: - Safari
     
-    public class func openUrl(url:NSURL?) {
-        if let link = url where UIApplication.sharedApplication().canOpenURL(link) {
-            UIApplication.sharedApplication().openURL(link)
+    public class func openUrl(url:URL?) {
+        if let link = url, UIApplication.shared.canOpenURL(link) {
+            UIApplication.shared.openURL(link)
         }
     }
     
     //MARK: - iTunes
     
     public class func openAppItunes(id:String) {
-        let url = NSURL(string:"https://itunes.apple.com/app/id" + id)
-        UIApplication.openUrl(url)
+        let url = URL(string:"https://itunes.apple.com/app/id" + id)
+        UIApplication.openUrl(url: url)
     }
     
     public class func openAppForReview(id:String) {
-        let url = NSURL(string:"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=" + id)
-        UIApplication.openUrl(url)
+        let url = URL(string:"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=" + id)
+        UIApplication.openUrl(url: url)
     }
     
     //MARK: - Phone
@@ -59,10 +59,10 @@ extension UIApplication {
     }
     
     public class func call(number:String) throws {
-        let phoneURLString = "telprompt://" + number.stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+        let phoneURLString = "telprompt://" + number.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: " ", with: "")
         if UIApplication.canCall {
-            if let phoneURL = NSURL(string: phoneURLString) {
-                UIApplication.sharedApplication().openURL(phoneURL)
+            if let phoneURL = URL(string: phoneURLString) {
+                UIApplication.shared.openURL(phoneURL)
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Not valid phone number", comment: "")]
                 throw NSError(domain: "com.UIApplication.ext", code: 0, userInfo: userInfo)
@@ -79,10 +79,10 @@ extension UIApplication {
     @nonobjc static let GoogleMapItunesLink = "https://itunes.apple.com/us/app/google-maps/id585027354?mt=8"
     
     public class func googleMapRoute(from:CLLocation, to:CLLocation) throws {
-        if UIApplication.sharedApplication().canOpenURL(NSURL(string: self.GoogleMapKey)!) {
+        if UIApplication.shared.canOpenURL(URL(string: self.GoogleMapKey)!) {
             if CLLocationCoordinate2DIsValid(from.coordinate) {
                 let urlString = String(format: "%@?saddr=%f,%f&daddr=%f,%f", self.GoogleMapKey, from.coordinate.latitude, from.coordinate.longitude, to.coordinate.latitude, to.coordinate.longitude)
-                UIApplication.sharedApplication().openURL(NSURL(string: urlString)!)
+                UIApplication.shared.openURL(URL(string: urlString)!)
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("unableToFindLocation", comment: "")]
                 throw NSError(domain: "com.UIApplication.ext", code: 0, userInfo: userInfo)

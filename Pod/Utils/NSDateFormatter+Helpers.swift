@@ -7,9 +7,9 @@
 
 import Foundation
 
-extension NSDateFormatter {
+extension DateFormatter {
     
-    public convenience init(dateStyle:NSDateFormatterStyle, timeStyle:NSDateFormatterStyle) {
+    public convenience init(dateStyle:DateFormatter.Style, timeStyle:DateFormatter.Style) {
         self.init()
         self.dateStyle = dateStyle
         self.timeStyle = timeStyle
@@ -20,12 +20,12 @@ extension NSDateFormatter {
         self.dateFormat = dateFormat
     }
     
-    public convenience init(dateStyle:NSDateFormatterStyle) {
-        self.init(dateStyle: dateStyle, timeStyle: .NoStyle)
+    public convenience init(dateStyle:DateFormatter.Style) {
+        self.init(dateStyle: dateStyle, timeStyle: .none)
     }
     
-    public convenience init(timeStyle:NSDateFormatterStyle) {
-        self.init(dateStyle: .NoStyle, timeStyle: timeStyle)
+    public convenience init(timeStyle:DateFormatter.Style) {
+        self.init(dateStyle: .none, timeStyle: timeStyle)
     }
     
 }

@@ -15,26 +15,26 @@ extension NSNumber {
         var tmp = valueToRound * scale
         tmp = Double(Int(round(tmp)))
         let roundedValue = tmp / scale
-        return NSNumber(double: roundedValue)
+        return NSNumber(value: roundedValue)
     }
 
     /** Returns price representation of number, nil for device currency */
     public func priceStr(currency:String?) -> String {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
         if currency != nil {
             formatter.currencySymbol = currency!
         }
         formatter.maximumFractionDigits = 0
-        return formatter.stringFromNumber(self)!
+        return formatter.string(from: self)!
     }
     
     public func thousandSeparated(separator:String? = nil) -> String {
-        let nf = NSNumberFormatter()
+        let nf = NumberFormatter()
         if separator != nil {
             nf.groupingSeparator = separator
         }
-        nf.numberStyle = NSNumberFormatterStyle.DecimalStyle
-        return nf.stringFromNumber(self)!
+        nf.numberStyle = .decimal
+        return nf.string(from: self)!
     }
 }

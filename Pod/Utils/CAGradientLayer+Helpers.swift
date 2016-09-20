@@ -16,7 +16,7 @@ extension CAGradientLayer {
         
         self.frame = frame
         
-        self.colors = colors.map({ $0.CGColor })
+        self.colors = colors.map({ $0.cgColor })
         
         if horizontal {
             self.startPoint = CGPoint(x: 0.0, y: 0.5)

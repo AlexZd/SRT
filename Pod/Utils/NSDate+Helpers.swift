@@ -7,84 +7,84 @@
 
 import Foundation
 
-extension NSDate {
-    public var dateOnly : NSDate {
+extension Date {
+    public var dateOnly : Date {
         get {
-            return self.dateToString("dd.MM.yyyy").stringToDate("dd.MM.yyyy")!
+            return self.toString("dd.MM.yyyy").toDate("dd.MM.yyyy")!
         }
     }
     
     public var isToday : Bool {
         get {
-            return self.dateOnly == NSDate().dateOnly
+            return self.dateOnly == Date().dateOnly
         }
     }
     
     public var isYesterday : Bool{
         get {
-            return self.dateOnly == NSDate().dateByAddingTimeInterval(-1 * 60 * 60 * 24).dateOnly
+            return self.dateOnly == Date().addingTimeInterval(-1 * 60 * 60 * 24).dateOnly
         }
     }
     
-    public func dateWithShift(days:Int, months:Int, years:Int) -> NSDate {
-        let cal = NSCalendar.currentCalendar()
-        let components = cal.components([.Year, .Month, .Day], fromDate: self)
-        components.year = components.year + years
-        components.month = components.month + months
-        components.day = components.day + days
-        return cal.dateFromComponents(components)!
+    public func dateWithShift(days:Int, months:Int, years:Int) -> Date? {
+        let unitFlags = Set<Calendar.Component>([.year, .month, .day])
+        var components = Calendar.current.dateComponents(unitFlags, from: self)
+        components.year = (components.year ?? 0) + years
+        components.month = (components.month ?? 0) + months
+        components.day = (components.day ?? 0) + days
+        return Calendar.current.date(from: components)
     }
     
     /** Converts NSDate to String with mask format */
-    public func dateToString(mask:String?) -> String {
-        let dateFormatter = NSDateFormatter()
+    public func toString(_ mask:String?) -> String {
+        let dateFormatter = DateFormatter()
         if mask != nil {
             dateFormatter.dateFormat = mask
         }else{
-            dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
-            dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+            dateFormatter.timeStyle = .medium
+            dateFormatter.dateStyle = .medium
         }
         
-        return dateFormatter.stringFromDate(self)
+        return dateFormatter.string(from: self)
     }
 
     /** Converts NSDate to String with mask format in Gregorian format */
-    public func dateToGregorianString(mask:String?) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)
+    public func toGregorianString(mask:String?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
         if mask != nil {
             dateFormatter.dateFormat = mask
         }else{
-            dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
-            dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+            dateFormatter.timeStyle = .medium
+            dateFormatter.dateStyle = .medium
         }
         
-        return dateFormatter.stringFromDate(self)
+        return dateFormatter.string(from: self)
     }
     
-    public func dateTimeToFormatter(dateF:NSDateFormatterStyle, timeF:NSDateFormatterStyle) -> String{
-        return NSDateFormatter(dateStyle: dateF, timeStyle: timeF).stringFromDate(self)
+    public func dateTimeToFormatter(date:DateFormatter.Style, time:DateFormatter.Style) -> String {
+        return DateFormatter(dateStyle: date, timeStyle: time).string(from: self)
     }
     
-    public func dateTimeToGregorianFormatter(dateF:NSDateFormatterStyle, timeF:NSDateFormatterStyle) -> String{
-        let dateFormatter = NSDateFormatter(dateStyle: dateF, timeStyle: timeF)
-        dateFormatter.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)
-        return dateFormatter.stringFromDate(self)
+    public func dateTimeToGregorianFormatter(date:DateFormatter.Style, time:DateFormatter.Style) -> String {
+        let dateFormatter = DateFormatter(dateStyle: date, timeStyle: time)
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        return dateFormatter.string(from: self)
     }
     
-    public func dateToFormatter(formatter:NSDateFormatterStyle) -> String{
-        return self.dateTimeToFormatter(formatter, timeF: .NoStyle)
+    public func dateToFormatter(formatter:DateFormatter.Style) -> String{
+        return self.dateTimeToFormatter(date: formatter, time: .none)
     }
     
-    public func dateToGregorianFormatter(formatter:NSDateFormatterStyle) -> String{
-        return self.dateTimeToGregorianFormatter(formatter, timeF: .NoStyle)
+    public func dateToGregorianFormatter(formatter:DateFormatter.Style) -> String{
+        return self.dateTimeToGregorianFormatter(date: formatter, time: .none)
     }
     
-    public func timeToFormatter(formatter:NSDateFormatterStyle) -> String{
-        return self.dateTimeToFormatter(.NoStyle, timeF:formatter)
+    public func timeToFormatter(formatter:DateFormatter.Style) -> String{
+        return self.dateTimeToFormatter(date: .none, time:formatter)
     }
     
-    public func timeToGregorianFormatter(formatter:NSDateFormatterStyle) -> String{
-        return self.dateTimeToGregorianFormatter(.NoStyle, timeF:formatter)
+    public func timeToGregorianFormatter(formatter:DateFormatter.Style) -> String{
+        return self.dateTimeToGregorianFormatter(date: .none, time:formatter)
     }
 }

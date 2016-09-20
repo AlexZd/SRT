@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NSURL {
+extension URL {
     
     public var isAssetsURL: Bool {
         return self.absoluteString.hasPrefix("assets")
@@ -27,18 +27,18 @@ extension NSURL {
         return false
     }
     
-    public func relativeTo(folder: Folder) -> NSURL {
+    public func relativeTo(folder: Folder) -> URL {
         if self.absoluteString.hasPrefix("file:") {
-            if let range = self.absoluteString.rangeOfString(folder.rawValue) {
-                return NSURL(string: "\(folder.rawValue.down)://\(self.absoluteString.substringFromIndex(range.endIndex))")!
+            if let range = self.absoluteString.range(of: folder.rawValue) {
+                return URL(string: "\(folder.rawValue.down)://\(self.absoluteString.substring(from: range.upperBound))")!
             }
         }
         return self
     }
     
-    public var folderedURL : NSURL? {
-        guard let folder = Folder(rawValue: self.scheme.down) else { return nil }
-        return NSURL(string: "file://\(folder.path)")!.URLByAppendingPathComponent(self.absoluteString.stringByReplacingOccurrencesOfString("\(folder.rawValue.down)://", withString: ""))
+    public var folderedURL : URL? {
+        guard let scheme = self.scheme, let folder = Folder(rawValue: scheme.down) else { return nil }
+        return URL(string: "file://\(folder.path)")?.appendingPathComponent(self.absoluteString.replacingOccurrences(of: "\(folder.rawValue.down)://", with: ""))
     }
     
 }

@@ -7,25 +7,25 @@
 
 import Foundation
 
-extension NSUserDefaults {
+extension UserDefaults {
     
     //MARK: - Class
     
-    public class func get(key:String) -> AnyObject? {
-        return NSUserDefaults.standardUserDefaults().get(key)
+    public class func get(key:String) -> Any? {
+        return UserDefaults.standard.get(key: key)
     }
     
-    public class func set(value:AnyObject?, key:String, synchronize:Bool = true) {
-        NSUserDefaults.standardUserDefaults().set(value, key: key, synchronize: synchronize)
+    public class func set(value:Any?, key:String, synchronize:Bool = true) {
+        UserDefaults.standard.set(value: value, key: key, synchronize: synchronize)
     }
     
     //MARK: - Instance
     
-    public func get(key:String) -> AnyObject? {
-        return NSUserDefaults.standardUserDefaults().valueForKey(key)
+    public func get(key:String) -> Any? {
+        return UserDefaults.standard.value(forKey: key)
     }
     
-    public func set(value: AnyObject?, key: String, synchronize: Bool = true) {
+    public func set(value: Any?, key: String, synchronize: Bool = true) {
         self.setValue(value, forKey: key)
         if synchronize {
             self.synchronize()
