@@ -1,5 +1,5 @@
 //
-//  NSError+Helpers.swift
+//  Error+Helpers.swift
 //
 //  Created by Alex Zdorovets on 6/18/15.
 //  Copyright (c) 2015 Alex Zdorovets. All rights reserved.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension NSError {
+extension Error {
     
     public convenience init(description:String) {
         let domain = "com.SRT.error"
