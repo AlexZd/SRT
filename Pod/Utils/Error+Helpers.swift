@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Error {
+extension NSError {
     
     public convenience init(description:String) {
         let domain = "com.SRT.error"
