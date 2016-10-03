@@ -17,11 +17,11 @@ public protocol AlertRepresentable {
 extension AlertRepresentable where Self: UIViewController {
     
     public func show(error:Error) {
-        self.present(title: "Error", error: error)
+        self.show(title: NSLocalizedString("error", comment: "").cap, error: error)
     }
     
     public func show(title:String, error:Error) {
-        self.present(title: title, text: error.localizedDescription)
+        self.show(title: title, text: error.localizedDescription)
     }
     
     public func show(title:String, text:String?) {
