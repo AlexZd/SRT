@@ -9,17 +9,17 @@
 import Foundation
 
 public protocol ModelInteraction: class {
-    func shouldAdd(model: AnyObject, options: AnyObject?) -> Bool
-    func shouldDelete(model: AnyObject, options: AnyObject?) -> Bool
-    func shouldUpdate(model: AnyObject, options: AnyObject?) -> Bool
+    func shouldAdd(model: Any, options: Any?) -> Bool
+    func shouldDelete(model: Any, options: Any?) -> Bool
+    func shouldUpdate(model: Any, options: Any?) -> Bool
     
-    func willAdd(model: AnyObject, options: AnyObject?)
-    func willUpdate(model: AnyObject, options: AnyObject?)
-    func willDelete(model: AnyObject, options: AnyObject?)
+    func willAdd(model: Any, options: Any?)
+    func willUpdate(model: Any, options: Any?)
+    func willDelete(model: Any, options: Any?)
     
-    func didAdd(model: AnyObject, options: AnyObject?)
-    func didUpdate(model: AnyObject, options: AnyObject?)
-    func didDelete(model: AnyObject, options: AnyObject?)
+    func didAdd(model: Any, options: Any?)
+    func didUpdate(model: Any, options: Any?)
+    func didDelete(model: Any, options: Any?)
 }
 
 extension ModelInteraction {
