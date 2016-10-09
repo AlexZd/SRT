@@ -31,7 +31,7 @@ extension Collection {
     }
     
     /** Transform items */
-    public func each(`do`: (Self.Generator.Element) -> Void) {
+    public func each(`do`: (Self.Iterator.Element) -> Void) {
         for item in self {
             `do`(item)
         }
