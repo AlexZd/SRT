@@ -30,4 +30,10 @@ extension Collection {
         return nil
     }
     
-}
+    /** Transform items */
+    public func doMap(transform: (Self.Generator.Element) -> Void) {
+        for item in self {
+            transform(item)
+        }
+    }
+    
