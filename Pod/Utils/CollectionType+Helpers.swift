@@ -31,9 +31,9 @@ extension CollectionType {
     }
     
     /** Transform items */
-    public func doMap(transform: (Self.Generator.Element) -> Void) {
+    public func each(`do`: (Self.Generator.Element) -> Void) {
         for item in self {
-            transform(item)
+            `do`(item)
         }
     }
     
