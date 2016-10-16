@@ -33,7 +33,7 @@ extension UIView {
     
     /** Returns entity from it's nib. Nib should have same name as class name. */
     public class func getFromNib() -> AnyObject {
-        return NSBundle.mainBundle().loadNibNamed(self.className, owner: self, options: nil).first!
+        return NSBundle.mainBundle().loadNibNamed(self.className, owner: self, options: nil)!.first!
     }
     
     /** Changes UIView width constraint and updates for superview */
@@ -105,6 +105,6 @@ extension UIView {
         self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 }

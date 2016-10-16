@@ -26,7 +26,7 @@ extension UIImage {
         let gradientImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return gradientImage
+        return gradientImage!
     }
     
     /** Converting a color image to gray scale */
@@ -39,8 +39,8 @@ extension UIImage {
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.None.rawValue)
         let context = CGBitmapContextCreate(nil, Int(width), Int(height), 8, 0, colorSpace, bitmapInfo.rawValue)
         
-        CGContextDrawImage(context, imageRect, self.CGImage)
-        let imageRef = CGBitmapContextCreateImage(context)
+        CGContextDrawImage(context!, imageRect, self.CGImage!)
+        let imageRef = CGBitmapContextCreateImage(context!)
         let newImage = UIImage(CGImage: imageRef!)
         
         return newImage
@@ -52,20 +52,20 @@ extension UIImage {
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
         
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, rect)
+        CGContextSetFillColorWithColor(context!, color.CGColor)
+        CGContextFillRect(context!, rect)
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return image
+        return image!
     }
     
     /** Saves image to Application folder with name */
     public func save(name:String, folder:Folder) -> NSURL? {
         let data = UIImageJPEGRepresentation(self, 1)
         let url = NSURL(fileURLWithPath: folder.path).URLByAppendingPathComponent(name)
-        if data?.writeToURL(url, atomically: true) == true {
+        if data?.writeToURL(url!, atomically: true) == true {
             return url
         }
         return nil
@@ -88,7 +88,7 @@ extension UIImage {
     public func resizeImageToExactSize(size:CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
         self.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
     }
@@ -110,10 +110,10 @@ extension UIImage {
         let bitmap = UIGraphicsGetCurrentContext()
         
         // Move the origin to the middle of the image so we will rotate and scale around the center.
-        CGContextTranslateCTM(bitmap, rotatedSize.width / 2.0, rotatedSize.height / 2.0);
+        CGContextTranslateCTM(bitmap!, rotatedSize.width / 2.0, rotatedSize.height / 2.0);
         
         //   // Rotate the image context
-        CGContextRotateCTM(bitmap, degreesToRadians(degrees));
+        CGContextRotateCTM(bitmap!, degreesToRadians(degrees));
         
         // Now, draw the rotated/scaled image into the context
         var yFlip: CGFloat
@@ -124,13 +124,13 @@ extension UIImage {
             yFlip = CGFloat(1.0)
         }
         
-        CGContextScaleCTM(bitmap, yFlip, -1.0)
-        CGContextDrawImage(bitmap, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage)
+        CGContextScaleCTM(bitmap!, yFlip, -1.0)
+        CGContextDrawImage(bitmap!, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage!)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return newImage
+        return newImage!
     }
 
 
