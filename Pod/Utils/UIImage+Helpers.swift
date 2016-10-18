@@ -9,15 +9,15 @@ import UIKit
 
 extension UIImage {
     
-    public var png : NSData? {
+    public var png : Data? {
         return UIImagePNGRepresentation(self)
     }
     
-    public var jpg : NSData? {
+    public var jpg : Data? {
         return self.jpg(1)
     }
     
-    public func jpg(_ compression: CGFloat) -> NSData? {
+    public func jpg(_ compression: CGFloat) -> Data? {
         return UIImageJPEGRepresentation(self, compression)
     }
     
