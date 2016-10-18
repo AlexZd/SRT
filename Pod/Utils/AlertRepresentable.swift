@@ -33,5 +33,5 @@ extension AlertRepresentable where Self: UIViewController {
 }
 
 extension UIViewController : AlertRepresentable {
-    /** In case you need to change alert, just override methods in extension inside your project */
+    /** In case you need to change alert, just override methods in extension inside your project, note that you need to override ALL methods, otherwise original will be called */
 }

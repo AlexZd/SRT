@@ -9,6 +9,19 @@ import UIKit
 
 extension UIImage {
     
+    public var png : NSData? {
+        return UIImagePNGRepresentation(self)
+    }
+    
+    public var jpg : NSData? {
+        return self.jpg(1)
+    }
+    
+    public func jpg(_ compression: CGFloat) -> NSData? {
+        return UIImageJPEGRepresentation(self, compression)
+    }
+    
+    
     public class func convertGradientToImage(colors: [UIColor], frame: CGRect, horizontal:Bool) -> UIImage {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = frame

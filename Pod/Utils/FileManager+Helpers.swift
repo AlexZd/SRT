@@ -61,6 +61,7 @@ extension FileManager {
         } catch let error as NSError {
             print("Could not delete file: \(error)")
         }
+            
     }
     
     /** Remove file at path */
