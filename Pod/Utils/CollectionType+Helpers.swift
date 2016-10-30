@@ -10,6 +10,10 @@ import Foundation
 
 extension Collection {
     
+    public var json : Data {
+        return try! JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
+    }
+    
     /** Get first non-empty object */
     public var firstNonEmpty: Self.Iterator.Element? {
         for object in self {
