@@ -54,7 +54,7 @@ extension String {
         return dateFormatter.dateFromString(self)
     }
     
-    /** Returns truncated string with ending which you spicify in trailing */
+    /** Returns truncated string with ending which you spicify in trailing, default trailing is "..." */
     public func trunc(length: Int, trailing: String? = "...") -> String {
         if self.characters.count > length {
             return self.substringToIndex(self.startIndex.advancedBy(length)) + (trailing ?? "")
