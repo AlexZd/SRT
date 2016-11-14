@@ -32,10 +32,9 @@ extension UIApplication {
     
     //MARK: - Safari
     
-    public class func openUrl(url:URL?) {
-        if let link = url, UIApplication.shared.canOpenURL(link) {
-            UIApplication.shared.openURL(link)
-        }
+    @discardableResult public class func openUrl(url:URL?) -> Bool {
+        guard let link = url, UIApplication.shared.canOpenURL(link) else { return false }
+        return UIApplication.shared.openURL(link)
     }
     
     //MARK: - iTunes

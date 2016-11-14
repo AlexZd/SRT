@@ -15,7 +15,7 @@ extension NSObject {
     
     /** Do something after delay */
     public func delay(_ delay:Double, closure:@escaping ()->()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             closure()
         }
     }
