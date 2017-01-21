@@ -34,11 +34,4 @@ extension Collection {
         return nil
     }
     
-    /** Transform items */
-    public func each(`do`: (Self.Iterator.Element) -> Void) {
-        for item in self {
-            `do`(item)
-        }
-    }
-    
 }
