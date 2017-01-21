@@ -20,7 +20,7 @@ extension UIAlertAction {
     }
     
     /** Action's handler */
-    public var handler : UIAlertActionHandler? {
+    public var actionHandler : UIAlertActionHandler? {
         return self.omg["closure"]
     }
     
