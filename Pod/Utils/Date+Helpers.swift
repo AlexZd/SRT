@@ -87,4 +87,21 @@ extension Date {
     public func timeToGregorianFormatter(formatter:DateFormatter.Style) -> String{
         return self.dateTimeToGregorianFormatter(date: .none, time:formatter)
     }
+    
+    public func combineDateWithTime(date: Date, time: Date) -> Date? {
+        let calendar = NSCalendar.current
+        
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let timeComponents = calendar.dateComponents([.hour, .minute, .second], from: time)
+        
+        var mergedComponments = DateComponents()
+        mergedComponments.year = dateComponents.year!
+        mergedComponments.month = dateComponents.month!
+        mergedComponments.day = dateComponents.day!
+        mergedComponments.hour = timeComponents.hour!
+        mergedComponments.minute = timeComponents.minute!
+        mergedComponments.second = timeComponents.second!
+        
+        return calendar.date(from: mergedComponments)
+    }
 }
