@@ -88,10 +88,10 @@ extension Date {
         return self.dateTimeToGregorianFormatter(date: .none, time:formatter)
     }
     
-    public func combineDateWithTime(date: Date, time: Date) -> Date? {
+    public func combine(with time: Date) -> Date? {
         let calendar = NSCalendar.current
         
-        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: self)
         let timeComponents = calendar.dateComponents([.hour, .minute, .second], from: time)
         
         var mergedComponments = DateComponents()
