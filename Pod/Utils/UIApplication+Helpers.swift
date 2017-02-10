@@ -75,7 +75,7 @@ extension UIApplication {
     //MARK: - GoogleMap
     
     @nonobjc static let GoogleMapKey = "comgooglemaps://"
-    @nonobjc static let GoogleMapItunesLink = "https://itunes.apple.com/us/app/google-maps/id585027354?mt=8"
+    @nonobjc static let GoogleMapItunesId = "585027354"
     
     public class func googleMapRoute(from:CLLocation, to:CLLocation) throws {
         if UIApplication.shared.canOpenURL(URL(string: self.GoogleMapKey)!) {
@@ -92,7 +92,7 @@ extension UIApplication {
     }
     
     class func getWantInstall() -> NSError {
-        let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("installGoogleMapMessage", comment: ""), "url" : self.GoogleMapItunesLink]
+        let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("installGoogleMapMessage", comment: ""), "appId" : self.GoogleMapItunesId]
         return NSError(domain: "com.UIApplication.ext", code: 1, userInfo: userInfo)
     }
 }
