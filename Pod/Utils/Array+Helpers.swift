@@ -7,6 +7,13 @@
 //
 
 
+extension Array {
+    public mutating func move(from: Int, to: Int) {
+        let item = self.remove(at: from)
+        self.insert(item, at: to)
+    }
+}
+
 extension Array where Element: Equatable {
     /** Remove first collection element that is equal to the given 'object' */
     public mutating func remove(object: Element?) {
