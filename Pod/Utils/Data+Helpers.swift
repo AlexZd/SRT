@@ -14,4 +14,15 @@ extension Data {
         return String(data: self, encoding: String.Encoding.utf8)
     }
     
+    public init<T>(array: [T]) {
+        var values = array
+        self.init(buffer: UnsafeBufferPointer(start: &values, count: values.count))
+    }
+    
+    public func array<T>(type: T.Type) -> [T] {
+        return self.withUnsafeBytes {
+            [T](UnsafeBufferPointer(start: $0, count: self.count/MemoryLayout<T>.stride))
+        }
+    }
+    
 }
