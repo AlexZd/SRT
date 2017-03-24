@@ -104,4 +104,12 @@ extension Date {
         
         return calendar.date(from: mergedComponments)
     }
+    
+    public func dateInRange(from: Date, to: Date, include: Bool = false) -> Bool {
+        if include {
+            return from <= self && self <= to
+        } else {
+            return from < self && self < to
+        }
+    }
 }
