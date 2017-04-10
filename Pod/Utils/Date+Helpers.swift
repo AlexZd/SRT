@@ -9,9 +9,11 @@ import Foundation
 
 extension Date {
     public var dateOnly : Date {
-        get {
-            return self.toString("dd.MM.yyyy").toDate("dd.MM.yyyy")!
-        }
+        return self.toString("dd.MM.yyyy").toDate("dd.MM.yyyy")!
+    }
+    
+    public var timeOnly : Date {
+        return self.toString("HH:mm").toDate("HH:mm")!
     }
     
     public var isToday : Bool {
