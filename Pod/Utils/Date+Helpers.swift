@@ -28,6 +28,11 @@ extension Date {
         }
     }
     
+    public static func time(_ time: Date, rounded: Int) -> Date {
+        let nextDiff = rounded - Calendar.current.component(.minute, from: time) % rounded
+        return Calendar.current.date(byAdding: .minute, value: nextDiff, to: time) ?? Date()
+    }
+    
     public func dateWithShift(days:Int, months:Int, years:Int) -> Date? {
         let unitFlags = Set<Calendar.Component>([.year, .month, .day])
         var components = Calendar.current.dateComponents(unitFlags, from: self)
