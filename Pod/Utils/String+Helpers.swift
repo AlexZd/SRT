@@ -8,12 +8,6 @@
 import Foundation
 
 extension String {
-    
-    /** Returns length of string */
-    public var length: Int {
-        return self.characters.count
-    }
-    
     /** Returns localizedUppercaseString for iOS 9+ or uppercaseString for below */
     public var up: String {
         if #available(iOS 9, *) {
