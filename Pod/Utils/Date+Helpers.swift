@@ -9,9 +9,11 @@ import Foundation
 
 extension Date {
     public var dateOnly : Date {
-        get {
-            return self.toString("dd.MM.yyyy").toDate("dd.MM.yyyy")!
-        }
+        return self.toString("dd.MM.yyyy").toDate("dd.MM.yyyy")!
+    }
+    
+    public var timeOnly : Date {
+        return self.toString("HH:mm").toDate("HH:mm")!
     }
     
     public var isToday : Bool {
@@ -24,6 +26,11 @@ extension Date {
         get {
             return self.dateOnly == Date().addingTimeInterval(-1 * 60 * 60 * 24).dateOnly
         }
+    }
+    
+    public static func time(_ time: Date, rounded: Int) -> Date {
+        let nextDiff = rounded - Calendar.current.component(.minute, from: time) % rounded
+        return Calendar.current.date(byAdding: .minute, value: nextDiff, to: time) ?? Date()
     }
     
     public func dateWithShift(days:Int, months:Int, years:Int) -> Date? {
@@ -103,5 +110,13 @@ extension Date {
         mergedComponments.second = timeComponents.second!
         
         return calendar.date(from: mergedComponments)
+    }
+    
+    public func dateInRange(from: Date, to: Date, include: Bool = false) -> Bool {
+        if include {
+            return from <= self && self <= to
+        } else {
+            return from < self && self < to
+        }
     }
 }

@@ -11,7 +11,7 @@ extension UserDefaults {
     
     //MARK: - Class
     
-    public class func get(key:String) -> Any? {
+    public class func get<T>(key:String) -> T? {
         return UserDefaults.standard.get(key: key)
     }
     
@@ -21,8 +21,8 @@ extension UserDefaults {
     
     //MARK: - Instance
     
-    public func get(key:String) -> Any? {
-        return UserDefaults.standard.value(forKey: key)
+    public func get<T>(key:String) -> T? {
+        return UserDefaults.standard.value(forKey: key) as? T
     }
     
     public func set(value: Any?, key: String, synchronize: Bool = true) {
