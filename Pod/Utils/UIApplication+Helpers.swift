@@ -31,11 +31,12 @@ extension UIApplication {
     }
     
     //MARK: - Safari
-    
+    #if !AZ_APP_EXTENSION
     @discardableResult public class func openUrl(url:URL?) -> Bool {
         guard let link = url, UIApplication.shared.canOpenURL(link) else { return false }
         return UIApplication.shared.openURL(link)
     }
+    #endif
     
     //MARK: - iTunes
     
@@ -57,6 +58,7 @@ extension UIApplication {
         }
     }
     
+    #if !AZ_APP_EXTENSION
     public class func call(number:String) throws {
         let phoneURLString = "telprompt://" + number.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: " ", with: "")
         if UIApplication.canCall {
@@ -71,12 +73,14 @@ extension UIApplication {
             throw NSError(domain: "com.UIApplication.ext", code: 0, userInfo: userInfo)
         }
     }
+    #endif
     
     //MARK: - GoogleMap
     
     @nonobjc static let GoogleMapKey = "comgooglemaps://"
     @nonobjc static let GoogleMapItunesId = "585027354"
     
+    #if !AZ_APP_EXTENSION
     public class func googleMapRoute(from:CLLocation, to:CLLocation) throws {
         if UIApplication.shared.canOpenURL(URL(string: self.GoogleMapKey)!) {
             if CLLocationCoordinate2DIsValid(from.coordinate) {
@@ -90,6 +94,7 @@ extension UIApplication {
             throw self.getWantInstall()
         }
     }
+    #endif
     
     class func getWantInstall() -> NSError {
         let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("installGoogleMapMessage", comment: ""), "appId" : self.GoogleMapItunesId]
