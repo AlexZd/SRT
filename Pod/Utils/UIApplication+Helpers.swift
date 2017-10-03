@@ -36,7 +36,6 @@ extension UIApplication {
         guard let link = url, UIApplication.shared.canOpenURL(link) else { return false }
         return UIApplication.shared.openURL(link)
     }
-    #endif
     
     //MARK: - iTunes
     
@@ -49,6 +48,7 @@ extension UIApplication {
         let url = URL(string:"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=" + id)
         UIApplication.openUrl(url: url)
     }
+    #endif
     
     //MARK: - Phone
     
