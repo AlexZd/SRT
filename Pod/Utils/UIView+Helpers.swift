@@ -9,6 +9,10 @@ import UIKit
 
 extension UIView {
     
+    public static func loadNib<T>() -> T {
+        return Bundle.main.loadNibNamed(self.className, owner: self, options: nil)!.first as! T
+    }
+    
     /** Returns UIView's class name. */
     public class var className : String {
         return NSStringFromClass(self.classForCoder()).components(separatedBy: ".").last!
