@@ -99,7 +99,7 @@ extension UIView {
     
     /** Screenshot of current view */
     public var screenshot : UIImage {
-        UIGraphicsBeginImageContext(self.frame.size)
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, UIScreen.main.scale)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
