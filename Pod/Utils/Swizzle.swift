@@ -7,9 +7,9 @@
 
 import Foundation
 
-public func SwizzleMethods(onClass:AnyClass, fromMethod:Selector, fromClass:AnyClass, toMethod:Selector) {
-    let originalMethod = class_getInstanceMethod(onClass, fromMethod)
-    let swizzledMethod = class_getInstanceMethod(fromClass, toMethod)
+public func SwizzleMethods(onClass: AnyClass, fromMethod: Selector, fromClass: AnyClass, toMethod: Selector) {
+    guard let originalMethod = class_getInstanceMethod(onClass, fromMethod) else { return }
+    guard let swizzledMethod = class_getInstanceMethod(fromClass, toMethod) else { return }
     
     let didAddMethod = class_addMethod(onClass, fromMethod, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
     

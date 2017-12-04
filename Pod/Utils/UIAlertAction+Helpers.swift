@@ -13,14 +13,13 @@ public typealias UIAlertActionHandler = (UIAlertAction) -> Swift.Void
 
 private var handlerAssociationKey: UInt8 = 0
 extension UIAlertAction {
-    
     private var omg: [String: UIAlertActionHandler] {
         get { return objc_getAssociatedObject(self, &handlerAssociationKey) as? [String: UIAlertActionHandler] ?? [:] }
         set { objc_setAssociatedObject(self, &handlerAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN) }
     }
     
     /** Action's handler */
-    public var actionHandler : UIAlertActionHandler? {
+    public var actionHandler: UIAlertActionHandler? {
         return self.omg["closure"]
     }
     

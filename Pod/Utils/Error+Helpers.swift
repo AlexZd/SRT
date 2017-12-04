@@ -8,11 +8,9 @@
 import Foundation
 
 extension NSError {
-    
-    public convenience init(description:String) {
-        let domain = "com.SRT.error"
-        let userinfo = [NSLocalizedDescriptionKey : description]
-        self.init(domain: domain, code: 0, userInfo: userinfo)
+    public convenience init(domain: String? = nil, code: Int? = nil, description: String) {
+        let domain = domain ?? "com.SRT.error"
+        let userinfo = [NSLocalizedDescriptionKey: description]
+        self.init(domain: domain, code: code ?? 0, userInfo: userinfo)
     }
-    
 }

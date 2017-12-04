@@ -9,7 +9,6 @@
 import Foundation
 
 extension NSRange {
-    
     public static var zero: NSRange {
         return NSRange(location: 0, length: 0)
     }
@@ -18,5 +17,4 @@ extension NSRange {
         self.location = 0
         self.length = length
     }
-    
 }

@@ -10,8 +10,7 @@ import Foundation
 import Photos
 
 extension PHAsset {
-    
-    public var originalImage : UIImage? {
+    public var originalImage: UIImage? {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
         option.isSynchronous = true

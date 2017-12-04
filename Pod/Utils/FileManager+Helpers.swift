@@ -13,7 +13,7 @@ public enum Folder: String {
     case cache = "cache"
     case temp = "temp"
     
-    public var path : String {
+    public var path: String {
         switch self {
         case .documents: return FileManager.Directory.Documents
         case .cache: return FileManager.Directory.Cache
@@ -25,7 +25,6 @@ public enum Folder: String {
 }
 
 extension FileManager {
-    
     public struct Directory {
         public static let Documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         public static let Cache = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
@@ -33,7 +32,7 @@ extension FileManager {
     }
     
     /** Print list of Documents files */
-    public class func listFiles(folder:String?) {
+    public class func listFiles(folder: String?) {
         var paths = FileManager.Directory.Documents
         if let folder = folder {
             paths = URL(fileURLWithPath: paths).appendingPathComponent(folder).path
@@ -53,7 +52,7 @@ extension FileManager {
     }
     
     /** Remove file with name from Documents folder */
-    public class func removeFile(fileName:String) {
+    public class func removeFile(fileName: String) {
         let fileURL = URL(fileURLWithPath: FileManager.Directory.Documents).appendingPathComponent(fileName)
         do {
             try FileManager.default.removeItem(at: fileURL)
@@ -65,7 +64,7 @@ extension FileManager {
     }
     
     /** Remove file at path */
-    public class func removeFileAt(path:String?) {
+    public class func removeFileAt(path: String?) {
         guard let path = path else { return }
         let fileURL = URL(fileURLWithPath: path)
         do {

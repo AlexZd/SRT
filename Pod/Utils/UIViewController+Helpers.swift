@@ -8,8 +8,7 @@
 import UIKit
 
 extension UIViewController {
-    
-    public func fixIOS9PopOverAnchor(segue:UIStoryboardSegue?) {
+    public func fixIOS9PopOverAnchor(segue: UIStoryboardSegue?) {
         guard #available(iOS 9.0, *) else {
             return
         }

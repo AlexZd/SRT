@@ -24,10 +24,6 @@ extension String {
         return self.lowercased()
     }
     
-    @available(*, deprecated: 1.0, message: "Use `capFirst` instead") public var capitalizedFirstString : String {
-        return self.capFirst
-    }
-    
     /** Returns localizedCapitalizedString for iOS 9+ or capitalizedString for below */
     public var cap: String {
         if #available(iOS 9, *) {
@@ -42,7 +38,7 @@ extension String {
     }
     
     /** Converts String to Gregorian NSDate */
-    public func toDate(_ mask:String) -> Date? {
+    public func toDate(_ mask: String) -> Date? {
         let dateFormatter = DateFormatter(dateFormat: mask)
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         return dateFormatter.date(from: self)
@@ -63,7 +59,7 @@ extension String {
     }
     
     /** Returns array of ranges of substring */
-    public func ranges(of string:String) -> Array<NSRange> {
+    public func ranges(of string: String) -> Array<NSRange> {
         var searchRange = NSMakeRange(0, self.characters.count)
         var ranges : Array<NSRange> = []
         
@@ -87,14 +83,14 @@ extension String {
     
     public func height(width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
         
         return ceil(boundingBox.height)
     }
     
     public func width(height: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
         
         return ceil(boundingBox.width)
     }

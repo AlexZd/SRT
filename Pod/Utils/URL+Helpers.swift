@@ -9,7 +9,6 @@
 import Foundation
 
 extension URL {
-    
     public var isAssetsURL: Bool {
         return self.absoluteString.hasPrefix("assets")
     }

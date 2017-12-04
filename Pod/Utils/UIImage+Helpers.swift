@@ -8,12 +8,11 @@
 import UIKit
 
 extension UIImage {
-    
-    public var png : Data? {
+    public var png: Data? {
         return UIImagePNGRepresentation(self)
     }
     
-    public var jpg : Data? {
+    public var jpg: Data? {
         return self.jpg(1)
     }
     
@@ -21,8 +20,7 @@ extension UIImage {
         return UIImageJPEGRepresentation(self, compression)
     }
     
-    
-    public class func convertGradientToImage(colors: [UIColor], frame: CGRect, horizontal:Bool) -> UIImage {
+    public class func gradientImage(colors: [UIColor], frame: CGRect, horizontal: Bool) -> UIImage {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = frame
         
@@ -43,7 +41,7 @@ extension UIImage {
     }
     
     /** Converting a color image to gray scale */
-    public func convertToGrayScale() -> UIImage {
+    public func toGrayScale() -> UIImage {
         let imageRect:CGRect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
         let colorSpace = CGColorSpaceCreateDeviceGray()
         let width = self.size.width
@@ -61,7 +59,7 @@ extension UIImage {
     }
     
     /** Creates an UIImage which has size 1x1 with selected color */
-    public class func imageWithColor(color:UIColor, size:CGSize? = nil) -> UIImage {
+    public class func image(with color: UIColor, size: CGSize? = nil) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size?.width ?? 1, height: size?.height ?? 1)
         UIGraphicsBeginImageContext(rect.size)
         
@@ -76,7 +74,7 @@ extension UIImage {
     }
     
     /** Saves image to Application folder with name */
-    public func save(name:String, folder:Folder) -> URL? {
+    public func save(name: String, folder: Folder) -> URL? {
         let data = UIImageJPEGRepresentation(self, 1)
         let url = URL(fileURLWithPath: folder.path).appendingPathComponent(name)
         do {
@@ -90,7 +88,7 @@ extension UIImage {
     
     /** Change image size */
     //TODO: - Need to use AVMakeRectWithAspectRatioInsideRect
-    public func resizeImageTo(maxSize:CGSize) -> UIImage {
+    public func resizeImageTo(maxSize: CGSize) -> UIImage {
         var newSize = maxSize
         if self.size.width > self.size.height {
             let k = self.size.height / self.size.width

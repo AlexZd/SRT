@@ -8,24 +8,20 @@
 import Foundation
 
 extension Date {
-    public var dateOnly : Date {
+    public var dateOnly: Date {
         return self.toString("dd.MM.yyyy").toDate("dd.MM.yyyy")!
     }
     
-    public var timeOnly : Date {
+    public var timeOnly: Date {
         return self.toString("HH:mm").toDate("HH:mm")!
     }
     
-    public var isToday : Bool {
-        get {
-            return self.dateOnly == Date().dateOnly
-        }
+    public var isToday: Bool {
+        return self.dateOnly == Date().dateOnly
     }
     
-    public var isYesterday : Bool{
-        get {
-            return self.dateOnly == Date().addingTimeInterval(-1 * 60 * 60 * 24).dateOnly
-        }
+    public var isYesterday: Bool {
+        return self.dateOnly == Date().addingTimeInterval(-1 * 60 * 60 * 24).dateOnly
     }
     
     public static func time(_ time: Date, rounded: Int) -> Date {
@@ -33,7 +29,7 @@ extension Date {
         return Calendar.current.date(byAdding: .minute, value: nextDiff, to: time) ?? Date()
     }
     
-    public func dateWithShift(days:Int, months:Int, years:Int) -> Date? {
+    public func dateWithShift(days: Int, months: Int, years: Int) -> Date? {
         let unitFlags = Set<Calendar.Component>([.year, .month, .day])
         var components = Calendar.current.dateComponents(unitFlags, from: self)
         components.year = (components.year ?? 0) + years
@@ -43,7 +39,7 @@ extension Date {
     }
     
     /** Converts NSDate to String with mask format */
-    public func toString(_ mask:String?) -> String {
+    public func toString(_ mask: String?) -> String {
         let dateFormatter = DateFormatter()
         if mask != nil {
             dateFormatter.dateFormat = mask
@@ -56,7 +52,7 @@ extension Date {
     }
 
     /** Converts NSDate to String with mask format in Gregorian format */
-    public func toGregorianString(mask:String?) -> String {
+    public func toGregorianString(mask: String?) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
         if mask != nil {
@@ -69,29 +65,29 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
-    public func dateTimeToFormatter(date:DateFormatter.Style, time:DateFormatter.Style) -> String {
+    public func dateTimeToFormatter(date: DateFormatter.Style, time: DateFormatter.Style) -> String {
         return DateFormatter(dateStyle: date, timeStyle: time).string(from: self)
     }
     
-    public func dateTimeToGregorianFormatter(date:DateFormatter.Style, time:DateFormatter.Style) -> String {
+    public func dateTimeToGregorianFormatter(date: DateFormatter.Style, time: DateFormatter.Style) -> String {
         let dateFormatter = DateFormatter(dateStyle: date, timeStyle: time)
         dateFormatter.calendar = Calendar(identifier: .gregorian)
         return dateFormatter.string(from: self)
     }
     
-    public func dateToFormatter(formatter:DateFormatter.Style) -> String{
+    public func dateToFormatter(formatter: DateFormatter.Style) -> String{
         return self.dateTimeToFormatter(date: formatter, time: .none)
     }
     
-    public func dateToGregorianFormatter(formatter:DateFormatter.Style) -> String{
+    public func dateToGregorianFormatter(formatter: DateFormatter.Style) -> String{
         return self.dateTimeToGregorianFormatter(date: formatter, time: .none)
     }
     
-    public func timeToFormatter(formatter:DateFormatter.Style) -> String{
+    public func timeToFormatter(formatter: DateFormatter.Style) -> String{
         return self.dateTimeToFormatter(date: .none, time:formatter)
     }
     
-    public func timeToGregorianFormatter(formatter:DateFormatter.Style) -> String{
+    public func timeToGregorianFormatter(formatter: DateFormatter.Style) -> String{
         return self.dateTimeToGregorianFormatter(date: .none, time:formatter)
     }
     

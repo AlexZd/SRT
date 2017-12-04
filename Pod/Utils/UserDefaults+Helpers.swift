@@ -15,13 +15,13 @@ extension UserDefaults {
         return UserDefaults.standard.get(key: key)
     }
     
-    public class func set(value:Any?, key:String, synchronize:Bool = true) {
+    public class func set(value: Any?, key: String, synchronize: Bool = true) {
         UserDefaults.standard.set(value: value, key: key, synchronize: synchronize)
     }
     
     //MARK: - Instance
     
-    public func get<T>(key:String) -> T? {
+    public func get<T>(key: String) -> T? {
         return UserDefaults.standard.value(forKey: key) as? T
     }
     

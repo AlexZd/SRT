@@ -9,12 +9,12 @@ import Foundation
 
 extension NSObject {
     /** Returns class description. Useful for identifiers.  */
-    public class var identifier : String {
+    public class var identifier: String {
         return NSStringFromClass(self).components(separatedBy: ".").last!
     }
     
     /** Do something after delay */
-    public func delay(_ delay:Double, closure:@escaping ()->()) {
+    public func delay(_ delay: Double, closure: @escaping ()->()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             closure()
         }

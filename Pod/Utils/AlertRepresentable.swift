@@ -9,9 +9,9 @@
 import Foundation
 
 public protocol AlertRepresentable {
-    func show(error:Error)
-    func show(title:String, error:Error)
-    func show(title:String, text:String?)
+    func show(error: Error)
+    func show(title: String, error: Error)
+    func show(title: String, text: String?)
 }
 
 extension AlertRepresentable where Self: UIViewController {
@@ -20,11 +20,11 @@ extension AlertRepresentable where Self: UIViewController {
         self.show(title: NSLocalizedString("error", comment: "").cap, error: error)
     }
     
-    public func show(title:String, error:Error) {
+    public func show(title: String, error: Error) {
         self.show(title: title, text: error.localizedDescription)
     }
     
-    public func show(title:String, text:String?) {
+    public func show(title: String, text: String?) {
         let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "").up, style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)

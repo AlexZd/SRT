@@ -14,37 +14,37 @@ extension UIApplication {
     
     //MARK: - App Details
     
-    public class var appName : String {
+    public class var appName: String {
         return Bundle.main.infoDictionary!["CFBundleName"] as! String
     }
     
-    public class var appVersion : String {
+    public class var appVersion: String {
         return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
     }
     
-    public class var appBuildNumber : String {
+    public class var appBuildNumber: String {
         return Bundle.main.infoDictionary!["CFBundleVersion"] as! String
     }
     
-    public class var bundleIdentifier : String {
+    public class var bundleIdentifier: String {
         return Bundle.main.bundleIdentifier ?? ""
     }
     
     //MARK: - Safari
     #if !AZ_APP_EXTENSION
-    @discardableResult public class func openUrl(url:URL?) -> Bool {
+    @discardableResult public class func openUrl(url: URL?) -> Bool {
         guard let link = url, UIApplication.shared.canOpenURL(link) else { return false }
         return UIApplication.shared.openURL(link)
     }
     
     //MARK: - iTunes
     
-    public class func openAppItunes(id:String) {
+    public class func openAppItunes(id: String) {
         let url = URL(string:"https://itunes.apple.com/app/id" + id)
         UIApplication.openUrl(url: url)
     }
     
-    public class func openAppForReview(id:String) {
+    public class func openAppForReview(id: String) {
         let url = URL(string:"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=" + id)
         UIApplication.openUrl(url: url)
     }
@@ -52,14 +52,12 @@ extension UIApplication {
     
     //MARK: - Phone
     
-    public static var canCall : Bool {
-        get {
-            return CTTelephonyNetworkInfo().subscriberCellularProvider?.isoCountryCode != nil
-        }
+    public static var canCall: Bool {
+        return CTTelephonyNetworkInfo().subscriberCellularProvider?.isoCountryCode != nil
     }
     
     #if !AZ_APP_EXTENSION
-    public class func call(number:String) throws {
+    public class func call(number: String) throws {
         let phoneURLString = "telprompt://" + number.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: " ", with: "")
         if UIApplication.canCall {
             if let phoneURL = URL(string: phoneURLString) {
@@ -81,7 +79,7 @@ extension UIApplication {
     @nonobjc static let GoogleMapItunesId = "585027354"
     
     #if !AZ_APP_EXTENSION
-    public class func googleMapRoute(from:CLLocation, to:CLLocation) throws {
+    public class func googleMapRoute(from: CLLocation, to: CLLocation) throws {
         if UIApplication.shared.canOpenURL(URL(string: self.GoogleMapKey)!) {
             if CLLocationCoordinate2DIsValid(from.coordinate) {
                 let urlString = String(format: "%@?saddr=%f,%f&daddr=%f,%f", self.GoogleMapKey, from.coordinate.latitude, from.coordinate.longitude, to.coordinate.latitude, to.coordinate.longitude)

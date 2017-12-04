@@ -9,7 +9,7 @@ import Foundation
 
 extension NSNumber {
     /** Returns NSNumber rounded to precision */
-    public func roundToPrecision(precision:Int) -> NSNumber {
+    public func roundToPrecision(precision: Int) -> NSNumber {
         let valueToRound = self.doubleValue
         let scale = pow(Double(10), Double(precision))
         var tmp = valueToRound * scale
@@ -19,7 +19,7 @@ extension NSNumber {
     }
 
     /** Returns price representation of number, nil for device currency */
-    public func priceStr(currency:String?) -> String {
+    public func priceStr(currency: String?) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         if currency != nil {
@@ -29,7 +29,7 @@ extension NSNumber {
         return formatter.string(from: self)!
     }
     
-    public func thousandSeparated(separator:String? = nil) -> String {
+    public func thousandSeparated(separator: String? = nil) -> String {
         let nf = NumberFormatter()
         if separator != nil {
             nf.groupingSeparator = separator

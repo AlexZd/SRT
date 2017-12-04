@@ -8,23 +8,22 @@
 import UIKit
 
 extension UIView {
-    
     public static func loadNib<T>() -> T {
         return Bundle.main.loadNibNamed(self.className, owner: self, options: nil)!.first as! T
     }
     
     /** Returns UIView's class name. */
-    public class var className : String {
+    public class var className: String {
         return NSStringFromClass(self.classForCoder()).components(separatedBy: ".").last!
     }
     
     /** Returns UIView's nib. */
-    public class var nib : UINib {
+    public class var nib: UINib {
         return UINib(nibName: self.className, bundle: nil)
     }
     
     /** Get value of height constraint of UIView*/
-    public var heightOfContstraint : CGFloat {
+    public var heightOfContstraint: CGFloat {
         let cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first!
         return cnst.constant
     }
@@ -35,7 +34,7 @@ extension UIView {
     }
     
     /** Changes UIView width constraint and updates for superview */
-    public func setWidth(width:CGFloat, update:Bool) {
+    public func setWidth(width: CGFloat, update: Bool) {
         var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.width && $0.isMember(of: NSLayoutConstraint.self)}).first
         if cnst == nil {
             if #available(iOS 9, *) {
@@ -46,13 +45,13 @@ extension UIView {
             }
         }
         cnst?.constant = width
-        if update{
-            updateConstraints()
+        if update {
+            self.updateConstraints()
         }
     }
     
     /** Changes UIView height constraint and updates for superview */
-    public func setHeight(height:CGFloat, update:Bool) {
+    public func setHeight(height: CGFloat, update: Bool) {
         var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first
         if cnst == nil {
             if #available(iOS 9, *) {
@@ -63,13 +62,13 @@ extension UIView {
             }
         }
         cnst?.constant = height
-        if update{
-            updateConstraints()
+        if update {
+            self.updateConstraints()
         }
     }
     
     /** Adds constraints to superview */
-    public func setEdgeConstaints(edges:UIEdgeInsets, update:Bool) {
+    public func setEdgeConstaints(edges: UIEdgeInsets, update: Bool) {
         guard let superview = self.superview else { return }
         
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +78,7 @@ extension UIView {
         let top = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: superview, attribute: .top, multiplier: 1, constant: edges.top)
         let bottom = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: superview, attribute: .bottom, multiplier: 1, constant: -1 * edges.bottom)
         superview.addConstraints([top, leading, trailing, bottom])
-        if update{
+        if update {
             superview.updateConstraints()
         }
     }
@@ -93,12 +92,11 @@ extension UIView {
         animation.duration = 0.3
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.isAdditive = true
-        
         self.layer.add(animation, forKey: "shake")
     }
     
     /** Screenshot of current view */
-    public var screenshot : UIImage {
+    public var screenshot: UIImage {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, UIScreen.main.scale)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
