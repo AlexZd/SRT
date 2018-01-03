@@ -23,7 +23,7 @@ extension Array where Element: Equatable {
         }
     }
     
-    var unique2: [Element] {
+    public var unique2: [Element] {
         var uniqueValues: [Element] = []
         forEach { item in
             if !uniqueValues.contains(item) {
