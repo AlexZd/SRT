@@ -22,6 +22,16 @@ extension Array where Element: Equatable {
             self.remove(at: index)
         }
     }
+    
+    var unique2: [Element] {
+        var uniqueValues: [Element] = []
+        forEach { item in
+            if !uniqueValues.contains(item) {
+                uniqueValues += [item]
+            }
+        }
+        return uniqueValues
+    }
 }
 
 extension Array where Element: Hashable {
