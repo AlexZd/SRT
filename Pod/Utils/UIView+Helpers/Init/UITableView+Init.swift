@@ -17,7 +17,7 @@ extension UITableView {
         return tableView
     }
     
-    func prepareTable(separatorInset: UIEdgeInsets = .zero, separatorColor: UIColor? = nil, multiply: Bool = false) {
+    public func prepareTable(separatorInset: UIEdgeInsets = .zero, separatorColor: UIColor? = nil, multiply: Bool = false) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.allowsMultipleSelection = multiply
         self.separatorInset = separatorInset
