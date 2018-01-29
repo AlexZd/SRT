@@ -45,7 +45,7 @@ extension UIApplication {
     }
     
     public class func openAppForReview(id:String) {
-        let url = URL(string:"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=" + id)
+        let url = URL(string:"https://itunes.apple.com/app/id" + id + "?mt=8&action=write-review")
         UIApplication.openUrl(url: url)
     }
     #endif
