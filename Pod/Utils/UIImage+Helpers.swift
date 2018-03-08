@@ -78,7 +78,7 @@ extension UIImage {
     public func save(name:String, folder:Folder) -> NSURL? {
         let data = UIImageJPEGRepresentation(self, 1)
         let url = NSURL(fileURLWithPath: folder.path).URLByAppendingPathComponent(name)
-        if data?.writeToURL(url!, atomically: true) == true {
+        if data?.writeToURL(url, atomically: true) == true {
             return url
         }
         return nil

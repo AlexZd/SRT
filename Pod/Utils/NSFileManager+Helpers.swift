@@ -36,7 +36,7 @@ extension NSFileManager {
     public class func listFiles(folder:String?) {
         var paths = NSFileManager.Directory.Documents
         if let folder = folder {
-            paths = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent(folder)!.path!
+            paths = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent(folder).path!
         }
         do {
             let directoryContent = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(paths)
@@ -54,7 +54,7 @@ extension NSFileManager {
     
     /** Remove file with name from Documents folder */
     public class func removeFile(fileName:String) {
-        guard let fileURL = NSURL(fileURLWithPath: NSFileManager.Directory.Documents).URLByAppendingPathComponent(fileName) else { return }
+        let fileURL = NSURL(fileURLWithPath: NSFileManager.Directory.Documents).URLByAppendingPathComponent(fileName)
         do {
             try NSFileManager.defaultManager().removeItemAtURL(fileURL)
             print("File \(fileName) removed")
