@@ -81,7 +81,7 @@ extension String {
         return self.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
     }
     
-    public func height(width: CGFloat, font: UIFont) -> CGFloat {
+    public func height(width: CGFloat, font: UIFont?) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
         
