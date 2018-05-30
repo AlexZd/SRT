@@ -15,6 +15,11 @@ extension Array {
 }
 
 extension Array where Element: Equatable {
+    public mutating func appendIfPossible(_ newElement: Element?) {
+        guard let item = newElement else { return }
+        self.append(item)
+    }
+    
     /** Remove first collection element that is equal to the given 'object' */
     public mutating func remove(object: Element?) {
         guard let item = object else { return }

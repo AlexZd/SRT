@@ -18,6 +18,8 @@ extension UIStackView {
         self.distribution = distribution
         self.spacing = spacing
         self.axis = axis
+        self.isLayoutMarginsRelativeArrangement = true
+        self.layoutMargins = .zero
     }
     
 }
