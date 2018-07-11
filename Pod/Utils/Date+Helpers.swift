@@ -9,7 +9,7 @@ import Foundation
 
 extension Date {
     public var dateOnly: Date {
-        return self.toString("dd.MM.yyyy").toDate("dd.MM.yyyy")!
+        return self.toGregorianString(mask: "dd.MM.yyyy").toDate("dd.MM.yyyy")!
     }
     
     public var timeOnly: Date {
@@ -55,6 +55,7 @@ extension Date {
     public func toGregorianString(mask: String?) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         if mask != nil {
             dateFormatter.dateFormat = mask
         }else{
