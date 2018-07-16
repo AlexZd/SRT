@@ -41,6 +41,7 @@ extension String {
     public func toDate(_ mask: String) -> Date? {
         let dateFormatter = DateFormatter(dateFormat: mask)
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
         return dateFormatter.date(from: self)
     }
     

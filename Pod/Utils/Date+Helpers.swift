@@ -9,7 +9,10 @@ import Foundation
 
 extension Date {
     public var dateOnly: Date {
-        return self.toGregorianString(mask: "dd.MM.yyyy").toDate("dd.MM.yyyy")!
+        if let date = self.toGregorianString(mask: "dd.MM.yyyy").toDate("dd.MM.yyyy") {
+            return date
+        }
+        fatalError("Date is nil! \(#file) \(#line)")
     }
     
     public var timeOnly: Date {
