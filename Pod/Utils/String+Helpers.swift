@@ -78,8 +78,8 @@ extension String {
     }
     
     /** Trim whitespacesAndNewlines */
-    public func trim() -> String {
-        return self.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+    public func trim(set: CharacterSet = CharacterSet.whitespacesAndNewlines) -> String {
+        return self.trimmingCharacters(in: set)
     }
     
     public func height(width: CGFloat, font: UIFont?) -> CGFloat {
