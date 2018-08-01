@@ -73,6 +73,14 @@ extension UIImage {
         return image
     }
     
+    public func withAlphaComponent(_ alpha: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: .zero, blendMode: .normal, alpha: alpha)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     /** Saves image to Application folder with name */
     public func save(name: String, folder: Folder) -> URL? {
         let data = UIImageJPEGRepresentation(self, 1)
