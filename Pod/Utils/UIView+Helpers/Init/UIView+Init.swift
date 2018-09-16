@@ -18,9 +18,11 @@ extension UIView {
         self.backgroundColor = background
         if let height = height {
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
+            self.frame.size.height = height
         }
         if let width = width {
             self.widthAnchor.constraint(equalToConstant: width).isActive = true
+            self.frame.size.width = width
         }
     }
     
