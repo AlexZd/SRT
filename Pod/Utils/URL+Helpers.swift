@@ -40,4 +40,19 @@ extension URL {
         return URL(string: "file://\(folder.path)")?.appendingPathComponent(self.absoluteString.replacingOccurrences(of: "\(folder.rawValue.down)://", with: ""))
     }
     
+    public var parameters: [String: String] {
+        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: true), let queryItems = components.queryItems else {
+            return [:]
+        }
+        var parameters: [String: String] = [:]
+        for item in queryItems {
+            parameters[item.name] = item.value
+        }
+        return parameters
+    }
+    
+    public subscript(param:String) -> String? {
+        return self.parameters[param]
+    }
+    
 }
