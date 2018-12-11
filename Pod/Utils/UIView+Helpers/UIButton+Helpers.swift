@@ -11,9 +11,9 @@ import Foundation
 extension UIButton {
     public func centralizeTitle(spacing: CGFloat) {
         let imageSize: CGSize = self.imageView!.image!.size
-        self.titleEdgeInsets = UIEdgeInsetsMake(0.0, -imageSize.width, -(imageSize.height + spacing), 0.0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -imageSize.width, bottom: -(imageSize.height + spacing), right: 0.0)
         let labelString = NSString(string: self.titleLabel!.text!)
-        let titleSize = labelString.size(withAttributes: [NSAttributedStringKey.font: self.titleLabel!.font])
-        self.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, -titleSize.width)
+        let titleSize = labelString.size(withAttributes: [.font: self.titleLabel!.font])
+        self.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0.0, bottom: 0.0, right: -titleSize.width)
     }
 }

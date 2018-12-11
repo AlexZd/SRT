@@ -24,7 +24,7 @@ extension UIAlertAction {
     }
     
     /** Creates and returns an action with the specified title and behavior, helping to store handler */
-    public convenience init(title: String?, style: UIAlertActionStyle = .default, closure: UIAlertActionHandler? = nil) {
+    public convenience init(title: String?, style: UIAlertAction.Style = .default, closure: UIAlertActionHandler? = nil) {
         self.init(title: title, style: style, handler: closure)
         if let closure = closure {
             self.omg["closure"] = closure

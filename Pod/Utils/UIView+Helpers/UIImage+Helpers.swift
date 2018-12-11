@@ -9,7 +9,7 @@ import UIKit
 
 extension UIImage {
     public var png: Data? {
-        return UIImagePNGRepresentation(self)
+        return self.pngData()
     }
     
     public var jpg: Data? {
@@ -17,7 +17,7 @@ extension UIImage {
     }
     
     public func jpg(_ compression: CGFloat) -> Data? {
-        return UIImageJPEGRepresentation(self, compression)
+        return self.jpegData(compressionQuality: compression)
     }
     
     public class func gradientImage(colors: [UIColor], frame: CGRect, horizontal: Bool) -> UIImage {
@@ -83,7 +83,7 @@ extension UIImage {
     
     /** Saves image to Application folder with name */
     public func save(name: String, folder: Folder) -> URL? {
-        let data = UIImageJPEGRepresentation(self, 1)
+        let data = self.jpg
         let url = URL(fileURLWithPath: folder.path).appendingPathComponent(name)
         do {
             try data?.write(to: url)

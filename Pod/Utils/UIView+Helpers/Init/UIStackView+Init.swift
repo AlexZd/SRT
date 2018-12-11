@@ -11,7 +11,7 @@ import UIKit
 
 extension UIStackView {
     
-    public convenience init(alignment: UIStackViewAlignment = .fill, distribution: UIStackViewDistribution = .fill, spacing: CGFloat = 0, axis: UILayoutConstraintAxis = .vertical) {
+    public convenience init(alignment: UIStackView.Alignment = .fill, distribution: UIStackView.Distribution = .fill, spacing: CGFloat = 0, axis: NSLayoutConstraint.Axis = .vertical) {
         self.init()
         self.translatesAutoresizingMaskIntoConstraints = false
         self.alignment = alignment

@@ -24,7 +24,7 @@ extension UIView {
     
     /** Get value of height constraint of UIView*/
     public var heightOfContstraint: CGFloat {
-        let cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first!
+        let cnst = constraints.filter({$0.firstAttribute == NSLayoutConstraint.Attribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first!
         return cnst.constant
     }
     
@@ -35,7 +35,7 @@ extension UIView {
     
     /** Changes UIView width constraint and updates for superview */
     public func setWidth(width: CGFloat, update: Bool) {
-        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.width && $0.isMember(of: NSLayoutConstraint.self)}).first
+        var cnst = constraints.filter({$0.firstAttribute == NSLayoutConstraint.Attribute.width && $0.isMember(of: NSLayoutConstraint.self)}).first
         if cnst == nil {
             if #available(iOS 9, *) {
                 self.widthAnchor.constraint(equalToConstant: width).isActive = true
@@ -52,7 +52,7 @@ extension UIView {
     
     /** Changes UIView height constraint and updates for superview */
     public func setHeight(height: CGFloat, update: Bool) {
-        var cnst = constraints.filter({$0.firstAttribute == NSLayoutAttribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first
+        var cnst = constraints.filter({$0.firstAttribute == NSLayoutConstraint.Attribute.height && $0.isMember(of: NSLayoutConstraint.self)}).first
         if cnst == nil {
             if #available(iOS 9, *) {
                 self.heightAnchor.constraint(equalToConstant: height).isActive = true
@@ -90,7 +90,7 @@ extension UIView {
         animation.values = [0, 20, -20, 10, 0];
         animation.keyTimes = [0, NSNumber(value: (1 / 6.0)), NSNumber(value: (3 / 6.0)), NSNumber(value: (5 / 6.0)), 1]
         animation.duration = 0.3
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         animation.isAdditive = true
         self.layer.add(animation, forKey: "shake")
     }
