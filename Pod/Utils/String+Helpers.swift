@@ -99,4 +99,26 @@ extension String {
         
         return ceil(boundingBox.width)
     }
+    
+    /// Returns values from string with RegExp pattern
+    public func regexValues(with pattern: String) -> [String] {
+        var results: [String] = []
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+            let matches = regex.matches(in: self, options: [], range: NSRange(self.startIndex..., in: self))
+            for match in matches {
+                let lastRangeIndex = match.numberOfRanges - 1
+                guard lastRangeIndex >= 1 else { return results }
+                
+                for i in 1...lastRangeIndex {
+                    let capturedGroupIndex = match.range(at: i)
+                    let matchedString = (self as NSString).substring(with: capturedGroupIndex)
+                    results.append(matchedString)
+                }
+            }
+            return results
+        } catch {
+            return results
+        }
+    }
 }

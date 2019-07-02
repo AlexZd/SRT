@@ -19,14 +19,6 @@ extension Date {
         return self.toString("HH:mm").toDate("HH:mm")!
     }
     
-    public var isToday: Bool {
-        return self.dateOnly == Date().dateOnly
-    }
-    
-    public var isYesterday: Bool {
-        return self.dateOnly == Date().addingTimeInterval(-1 * 60 * 60 * 24).dateOnly
-    }
-    
     public static func time(_ time: Date, rounded: Int) -> Date {
         let nextDiff = rounded - Calendar.current.component(.minute, from: time) % rounded
         return Calendar.current.date(byAdding: .minute, value: nextDiff, to: time) ?? Date()
