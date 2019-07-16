@@ -12,6 +12,20 @@ extension Array {
         let item = self.remove(at: from)
         self.insert(item, at: to)
     }
+    
+    public mutating func rotate(positions: Int, size: Int? = nil) {
+        let size = size ?? self.count
+        guard positions < self.count && size <= self.count else { return }
+        self[0..<positions].reverse()
+        self[positions..<size].reverse()
+        self[0..<size].reverse()
+    }
+    
+    public func rotated(positions: Int, size: Int? = nil) -> Array {
+        var newArray = self
+        newArray.rotate(positions: positions, size: size)
+        return newArray
+    }
 }
 
 extension Array where Element: Equatable {
