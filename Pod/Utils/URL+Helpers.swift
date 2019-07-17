@@ -17,6 +17,10 @@ extension URL {
         return self.absoluteString.hasPrefix("file") || self.isFolder
     }
     
+    public var isWebURL: Bool {
+        return self.absoluteString.hasPrefix("http")
+    }
+    
     public var isFolder: Bool {
         for prefix in Folder.allValues.map({ $0.rawValue.down }) {
             if self.absoluteString.hasPrefix(prefix) {
