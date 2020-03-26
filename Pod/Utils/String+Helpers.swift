@@ -46,9 +46,10 @@ extension String {
     }
     
     /** Returns truncated string with ending which you spicify in trailing */
-    public func trunc(length: Int, trailing: String? = "...") -> String {
+    public func truncate(length: Int, trailing: String? = nil) -> String {
         if self.characters.count > length {
-            return self.substring(to: self.index(self.startIndex, offsetBy: length)) + (trailing ?? "")
+            let index = self.index(self.startIndex, offsetBy: length)
+            return String(self[..<index]) + (trailing ?? "")
         } else {
             return self
         }
