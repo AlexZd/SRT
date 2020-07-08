@@ -10,16 +10,16 @@ import Photos
 
 extension PHPhotoLibrary {
     /** Checks and asks (if needed) Photo library permissions  */
-    public class func isAuthorized(completion:(authorized:Bool) -> Void) {
+    public class func isAuthorized(completion: @escaping (_ authorized:Bool) -> Void) {
         PHPhotoLibrary.requestAuthorization { status in
-            dispatch_async(dispatch_get_main_queue(),{
+            DispatchQueue.main.async {
                 switch status {
-                case .Authorized:
-                    completion(authorized: true)
+                case .authorized:
+                    completion(true)
                 default:
-                    completion(authorized: false)
+                    completion(false)
                 }
-            })
+            }
         }
     }
 }

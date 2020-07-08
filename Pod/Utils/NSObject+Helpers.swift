@@ -9,27 +9,15 @@ import Foundation
 
 extension NSObject {
     /** Returns class description. Useful for identifiers.  */
-    public class var identifier : String {
-        return NSStringFromClass(self).componentsSeparatedByString(".").last!
+    public class var identifier: String {
+        return NSStringFromClass(self).components(separatedBy: ".").last!
     }
     
     /** Do something after delay */
-    public func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
+    public func delay(_ delay: Double, closure: @escaping ()->()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            closure()
+        }
     }
     
-    /** Do something in background */
-    public static func background(queuePriority: dispatch_queue_priority_t = DISPATCH_QUEUE_PRIORITY_DEFAULT, closure: () -> Void) {
-        dispatch_async(dispatch_get_global_queue(queuePriority, 0), closure)
-    }
-    
-    /** Do something in main */
-    public static func main(closure: () -> Void) {
-        dispatch_async(dispatch_get_main_queue(), closure)
-    }
 }

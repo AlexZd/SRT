@@ -9,43 +9,43 @@
 import Foundation
 
 public protocol ModelInteraction: class {
-    func shouldAdd(model: AnyObject, options: AnyObject?) -> Bool
-    func shouldDelete(model: AnyObject, options: AnyObject?) -> Bool
-    func shouldUpdate(model: AnyObject, options: AnyObject?) -> Bool
+    func shouldAdd(model: Any, options: Any?) -> Bool
+    func shouldDelete(model: Any, options: Any?) -> Bool
+    func shouldUpdate(model: Any, options: Any?) -> Bool
     
-    func willAdd(model: AnyObject, options: AnyObject?)
-    func willUpdate(model: AnyObject, options: AnyObject?)
-    func willDelete(model: AnyObject, options: AnyObject?)
+    func willAdd(model: Any, options: Any?)
+    func willUpdate(model: Any, options: Any?)
+    func willDelete(model: Any, options: Any?)
     
-    func didAdd(model: AnyObject, options: AnyObject?)
-    func didUpdate(model: AnyObject, options: AnyObject?)
-    func didDelete(model: AnyObject, options: AnyObject?)
+    func didAdd(model: Any, options: Any?)
+    func didUpdate(model: Any, options: Any?)
+    func didDelete(model: Any, options: Any?)
 }
 
 extension ModelInteraction {
     //MARK: - Shoulda
     
-    public func shouldAdd(model: AnyObject, options: AnyObject? = [:]) -> Bool {
+    public func shouldAdd(model: Any, options: Any? = [:]) -> Bool {
         return true
     }
     
-    public func shouldDelete(model: AnyObject, options: AnyObject? = [:]) -> Bool {
+    public func shouldDelete(model: Any, options: Any? = [:]) -> Bool {
         return true
     }
     
-    public func shouldUpdate(model: AnyObject, options: AnyObject? = [:]) -> Bool {
+    public func shouldUpdate(model: Any, options: Any? = [:]) -> Bool {
         return true
     }
     
     //MARK: - Will
     
-    public func willAdd(model: AnyObject, options: AnyObject? = [:]) {}
-    public func willUpdate(model: AnyObject, options: AnyObject? = [:]) {}
-    public func willDelete(model: AnyObject, options: AnyObject? = [:]) {}
+    public func willAdd(model: Any, options: Any? = [:]) {}
+    public func willUpdate(model: Any, options: Any? = [:]) {}
+    public func willDelete(model: Any, options: Any? = [:]) {}
     
     //MARK: - Did
     
-    public func didAdd(model: AnyObject, options: AnyObject? = [:]) {}
-    public func didUpdate(model: AnyObject, options: AnyObject? = [:]) {}
-    public func didDelete(model: AnyObject, options: AnyObject? = [:]) {}
+    public func didAdd(model: Any, options: Any? = [:]) {}
+    public func didUpdate(model: Any, options: Any? = [:]) {}
+    public func didDelete(model: Any, options: Any? = [:]) {}
 }

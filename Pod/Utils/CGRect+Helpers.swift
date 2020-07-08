@@ -9,9 +9,7 @@
 import Foundation
 
 extension CGRect {
-    
-    public var center : CGPoint {
-        return CGPointMake(CGRectGetMidX(self), CGRectGetMidY(self))
+    public var center: CGPoint {
+        return CGPoint(x: self.midX, y: self.midY)
     }
-    
 }

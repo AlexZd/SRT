@@ -9,32 +9,25 @@
 import Foundation
 
 public protocol AlertRepresentable {
-    func showError(error:NSError)
-    func showError(title:String, error:NSError)
-    func showAlert(title:String, text:String?)
+    func show(error: Error)
+    func show(title: String, error: Error)
+    func show(title: String, text: String?)
 }
 
 extension AlertRepresentable where Self: UIViewController {
     
-    public func showError(error:NSError) {
-        self.showError("Error", error: error)
+    public func show(error:Error) {
+        self.show(title: NSLocalizedString("error", comment: "").cap, error: error)
     }
     
-    public func showError(title:String, error:NSError) {
-        let CRUDResponseDataKey = "CRUDResponseDataKey"
-        if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? [String] where errorsInfo.isEmpty == false {
-            self.showAlert(title, text: errorsInfo.first)
-        } else if let errorsInfo = error.userInfo[CRUDResponseDataKey] as? [String: String] where errorsInfo.isEmpty == false {
-            self.showAlert(title, text: errorsInfo["error"])
-        } else {
-            self.showAlert(title, text: error.localizedDescription)
-        }
+    public func show(title: String, error: Error) {
+        self.show(title: title, text: error.localizedDescription)
     }
     
-    public func showAlert(title:String, text:String?) {
-        let alert = UIAlertController(title: title, message: text, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "").up, style: .Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+    public func show(title: String, text: String?) {
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "").up, style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

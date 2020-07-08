@@ -8,38 +8,28 @@
 import Foundation
 
 extension String {
-    
-    /** Returns length of string */
-    public var length: Int {
-        return self.characters.count
-    }
-    
     /** Returns localizedUppercaseString for iOS 9+ or uppercaseString for below */
     public var up: String {
         if #available(iOS 9, *) {
-            return self.localizedUppercaseString
+            return self.localizedUppercase
         }
-        return self.uppercaseString
+        return self.uppercased()
     }
     
     /** Returns localizedLowercaseString for iOS 9+ or lowercaseString for below */
     public var down: String {
         if #available(iOS 9, *) {
-            return self.localizedLowercaseString
+            return self.localizedLowercase
         }
-        return self.lowercaseString
-    }
-    
-    @available(*, deprecated=1.0, message="Use `capFirst` instead") public var capitalizedFirstString : String {
-        return self.capFirst
+        return self.lowercased()
     }
     
     /** Returns localizedCapitalizedString for iOS 9+ or capitalizedString for below */
     public var cap: String {
         if #available(iOS 9, *) {
-            return self.localizedCapitalizedString
+            return self.localizedCapitalized
         }
-        return self.capitalizedString
+        return self.capitalized
     }
     
     /** Returns string with first capitalized letter */
@@ -48,16 +38,18 @@ extension String {
     }
     
     /** Converts String to Gregorian NSDate */
-    public func stringToDate(mask:String) -> NSDate? {
-        let dateFormatter = NSDateFormatter(dateFormat: mask)
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        return dateFormatter.dateFromString(self)
+    public func toDate(_ mask: String) -> Date? {
+        let dateFormatter = DateFormatter(dateFormat: mask)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        return dateFormatter.date(from: self)
     }
     
-    /** Returns truncated string with ending which you spicify in trailing, default trailing is "..." */
-    public func trunc(length: Int, trailing: String? = "...") -> String {
+    /** Returns truncated string with ending which you spicify in trailing */
+    public func truncate(length: Int, trailing: String? = nil) -> String {
         if self.characters.count > length {
-            return self.substringToIndex(self.startIndex.advancedBy(length)) + (trailing ?? "")
+            let index = self.index(self.startIndex, offsetBy: length)
+            return String(self[..<index]) + (trailing ?? "")
         } else {
             return self
         }
@@ -65,17 +57,17 @@ extension String {
     
     /** Returns `true` in case string contains substring */
     func contains(substring: String) -> Bool {
-        return self.rangeOfString(substring) != nil
+        return self.ranges(of: substring) != nil
     }
     
     /** Returns array of ranges of substring */
-    public func rangesOfSubstring(string:String) -> Array<NSRange> {
+    public func ranges(of string: String) -> Array<NSRange> {
         var searchRange = NSMakeRange(0, self.characters.count)
         var ranges : Array<NSRange> = []
         
         while searchRange.location < self.characters.count {
             searchRange.length = self.characters.count - searchRange.location
-            let foundRange = (self as NSString).rangeOfString(string, options: NSStringCompareOptions.CaseInsensitiveSearch, range: searchRange)
+            let foundRange = (self as NSString).range(of: string, options: .caseInsensitive, range: searchRange)
             if foundRange.location != NSNotFound {
                 ranges.append(foundRange)
                 searchRange.location = foundRange.location + foundRange.length
@@ -86,9 +78,48 @@ extension String {
         return ranges
     }
     
-    /** Trim whitespaceAndNewlineCharacterSet */
+    /** Trim whitespacesAndNewlines */
+    public func trim(set: CharacterSet = CharacterSet.whitespacesAndNewlines) -> String {
+        return self.trimmingCharacters(in: set)
+    }
     
-    public func trim() -> String {
-        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    public func height(width: CGFloat, font: UIFont?) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        var attributes: [NSAttributedString.Key: Any] = [:]
+        if let font = font {
+            attributes[.font] = font
+        }
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        return ceil(boundingBox.height)
+    }
+    
+    public func width(height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+        
+        return ceil(boundingBox.width)
+    }
+    
+    /// Returns values from string with RegExp pattern
+    public func regexValues(with pattern: String) -> [String] {
+        var results: [String] = []
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+            let matches = regex.matches(in: self, options: [], range: NSRange(self.startIndex..., in: self))
+            for match in matches {
+                let lastRangeIndex = match.numberOfRanges - 1
+                guard lastRangeIndex >= 1 else { return results }
+                
+                for i in 1...lastRangeIndex {
+                    let capturedGroupIndex = match.range(at: i)
+                    let matchedString = (self as NSString).substring(with: capturedGroupIndex)
+                    results.append(matchedString)
+                }
+            }
+            return results
+        } catch {
+            return results
+        }
     }
 }

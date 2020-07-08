@@ -8,33 +8,8 @@
 
 import Foundation
 
-extension CollectionType {
-    
-    /** Get first non-empty object */
-    public var firstNonEmpty: Self.Generator.Element? {
-        for object in self {
-            if (object as? AnyObject)?.isKindOfClass(NSNull) == false && (object as? String)?.isEmpty != true {
-                return object
-            }
-        }
-        return nil
+extension Collection {
+    public var json: Data {
+        return try! JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
     }
-    
-    /** Get last non-empty object */
-    public var lastNonEmpty: Self.Generator.Element? {
-        for object in self.reverse() {
-            if (object as? AnyObject)?.isKindOfClass(NSNull) == false && (object as? String)?.isEmpty != true {
-                return object
-            }
-        }
-        return nil
-    }
-    
-    /** Transform items */
-    public func each(`do`: (Self.Generator.Element) -> Void) {
-        for item in self {
-            `do`(item)
-        }
-    }
-    
 }
